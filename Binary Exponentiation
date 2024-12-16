@@ -1,0 +1,8 @@
+( x ^ n ) % m : 
+---------------
+ll bin_expon_recur(int x, int n, int m){
+    if(n == 0) return 1;
+    ll res = bin_expon_recur(x, n / 2, m);
+    if(n & 1) return (x * ((res * res) % m)) % m;
+    else return (res * res) % m;
+}
