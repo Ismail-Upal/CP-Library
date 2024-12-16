@@ -16,3 +16,15 @@ ll bin_expon_iter(ll x, ll n, int m){
     }
     return ans;
 }
+-----------------
+ll mulmod(ll x, ll n, ll mod) { // O(log y)
+  ll ans = 0;
+  while (n > 0) {
+    if (n & 1) {
+      ans = (ans + x) % mod;
+    }
+    x = (x + x) % mod;
+    n >>= 1;
+  }
+  return ans;
+}
