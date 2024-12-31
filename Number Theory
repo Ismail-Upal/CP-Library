@@ -1,5 +1,5 @@
 -----------------------------------------
-Find divisors sqrt : 
+Find divisors sqrt : O(sqrt(N))
 -----------------------------------------
 vector<int> find_divisors(int n) {
     vector<int> divisors;
@@ -14,7 +14,7 @@ vector<int> find_divisors(int n) {
     return divisors;
 }
 ------------------------------------------
-Find number of divisors from 1 to N :
+Find number of divisors from 1 to N : O(logN)
 ------------------------------------------
 const int N = 1e6 + 9;
 int d[N];
