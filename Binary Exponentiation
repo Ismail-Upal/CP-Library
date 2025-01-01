@@ -1,5 +1,5 @@
 ( x ^ n ) % m :
----------------
+-------------------------
 int power(int x, ll n, int mod) { // O(log n) recursive
   if (n == 0) return 1 % mod;
   int cur = power(x, n / 2, mod);
@@ -10,7 +10,7 @@ int power(int x, ll n, int mod) { // O(log n) recursive
     return 1LL * cur * cur % mod * x % mod;
   }
 }
-----------------
+-----------------------
 int power(int x, long long n, int mod) { // O(log n) iterative
   int ans = 1 % mod;
   while (n > 0) {
@@ -22,7 +22,7 @@ int power(int x, long long n, int mod) { // O(log n) iterative
   }
   return ans;
 }
------------------
+-----------------------
 ll mulmod(ll x, ll y, ll mod) { // O(log y) , (x * y) % mod
   ll ans = 0;
   while (y > 0) {
@@ -31,6 +31,20 @@ ll mulmod(ll x, ll y, ll mod) { // O(log y) , (x * y) % mod
     }
     x = (x + x) % mod;
     y >>= 1;
+  }
+  return ans;
+}
+-----------------------
+#define ull unsigned long long #2^64
+#define ui unsigned int #2^32
+ull power(ull x, ull n) { // O(log n), (x^n) mod 2^64
+  ull ans = 1;
+  while (n > 0) {
+    if (n & 1) {
+      ans *= x;
+    }
+    x *= x;
+    n >>= 1;
   }
   return ans;
 }
