@@ -11,7 +11,7 @@ int power(int x, ll n, int mod) { // O(log n) recursive
   }
 }
 -----------------------
-int power(int x, long long n, int mod) { // O(log n) iterative
+int power(int x, ll n, int mod) { // O(log n) iterative
   int ans = 1 % mod;
   while (n > 0) {
     if (n & 1) {
