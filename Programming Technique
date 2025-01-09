@@ -15,3 +15,7 @@ Difference Array :
   }
   for(int i = 1; i <= n; i++) cout << v[i] << " ";
 ------------------------------------
+2D Prefix :
+------------------------------------
+prefix[i][j] = prefix[i − 1][j] + prefix[i][j − 1] − prefix[i − 1][j − 1] + arr[i][j]
+​
