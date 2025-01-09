@@ -1,19 +1,19 @@
 Difference Array : 
 -----------------------------------
-  int n; cin >> n; // n = 5 
-  vector<int> v(n + 1); // {1, 3, 5, 2, 4}
-  for(int i = 1; i <= n; i++) cin >> v[i];
-  vector<int> diff(n + 1); // {1, 2, 2, -3, 2}
-  for(int i = 1; i <= n; i++){
-      diff[i] = v[i] - v[i - 1];
-  }
-  for(int i = 1; i <= n; i++) cout << diff[i] << " ";
+	int n; cin >> n; // n = 5 
+	vector<int> v(n + 1); // {1, 3, 5, 2, 4}
+	for(int i = 1; i <= n; i++) cin >> v[i];
+	vector<int> diff(n + 1); // {1, 2, 2, -3, 2}
+	for(int i = 1; i <= n; i++){
+		diff[i] = v[i] - v[i - 1];
+  	}
+  	for(int i = 1; i <= n; i++) cout << diff[i] << " ";
   
-  // Find the original array by prefix sum
-  for(int i = 1; i <= n; i++){
-      v[i] = v[i - 1] + diff[i];
-  }
-  for(int i = 1; i <= n; i++) cout << v[i] << " ";
+  	// Find the original array by prefix sum
+  	for(int i = 1; i <= n; i++){
+		v[i] = v[i - 1] + diff[i];
+	}
+  	for(int i = 1; i <= n; i++) cout << v[i] << " ";
 ------------------------------------
 2D Prefix :
 ------------------------------------
@@ -22,3 +22,9 @@ Difference Array :
 			pref[i][j] = pref[i - 1][j] + pref[i][j - 1] - pref[i - 1][j - 1] + a[i][j]
 		}
 	}
+	while(q--){
+        int x1, y1, x2, y2; cin >> x1 >> y1 >> x2 >> y2;
+        int ans = pref[x2][y2] - pref[x2][y1 - 1] - pref[x1 - 1][y2] + pref[x1 - 1][y1 - 1];
+        cout << ans << endl;
+    }
+-------------------------------------
