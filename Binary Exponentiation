@@ -1,5 +1,5 @@
 ( x ^ n ) % m :
--------------------------
+---------------------------------------------------------
 int power(int x, ll n, int mod) { // O(log n) recursive
   if (n == 0) return 1 % mod;
   int cur = power(x, n / 2, mod);
@@ -10,7 +10,7 @@ int power(int x, ll n, int mod) { // O(log n) recursive
     return 1LL * cur * cur % mod * x % mod;
   }
 }
------------------------
+------------------------------------------------------------
 int power(int x, ll n, int mod) { // O(log n) iterative
   int ans = 1 % mod;
   while (n > 0) {
@@ -22,7 +22,7 @@ int power(int x, ll n, int mod) { // O(log n) iterative
   }
   return ans;
 }
------------------------
+------------------------------------------------------------
 ll mulmod(ll x, ll y, ll mod) { // O(log y) , (x * y) % mod
   ll ans = 0;
   while (y > 0) {
@@ -38,7 +38,7 @@ ll mulmod(ll x, ll y, ll mod) { // O(log y) , (x * y) % mod
 ll mulmod(ll x, ll y, ll mod) { // O(1)
   return (ll)((__int128)x * y % mod);
 }
------------------------
+--------------------------------------------------------------
 #define ull unsigned long long #2^64
 #define ui unsigned int #2^32
 ull power(ull x, ull n) { // O(log n), (x^n) mod 2^64
@@ -52,3 +52,36 @@ ull power(ull x, ull n) { // O(log n), (x^n) mod 2^64
   }
   return ans;
 }
+------------------------------------------------------------------
+Fermet Little Theorem : 
+If p is a prime and a is an integer not divisible by p, then
+# a^(p-1) % p == 1
+# a^n % p == a^(n % (p - 1)) % p
+------------------------------------------------------------------
+Modular Mul Inverse : a^(-1) % m
+# a^(-1) % mod == b because (a * b) % mod == 1 if gcd(a, mod) = 1:coprime
+# if mod == prime .then, 
+  a^(-1) % m == a^(m - 2) % m
+
+int power(int x, int n, int mod) { // O(log n)
+  int ans = 1 % mod;
+  while (n > 0) {
+    if (n & 1) {
+      ans = 1LL * ans * x % mod;
+    }
+    x = 1LL * x * x % mod;
+    n >>= 1;
+  }
+  return ans;
+}
+
+// m is prime
+int inverse(int a, int m) { // O(log m)
+  return power(a, m - 2, m);
+}
+--------------------------------------------------------------------
+Modular Division : (a / b) % m
+# (a / b) % m
+==> a * b^(-1) % m
+==> a * b^(m - 2) % m
+--------------------------------------------------------------------
