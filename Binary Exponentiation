@@ -34,6 +34,10 @@ ll mulmod(ll x, ll y, ll mod) { // O(log y) , (x * y) % mod
   }
   return ans;
 }
+
+ll mulmod(ll x, ll y, ll mod) { // O(1)
+  return (ll)((__int128)x * y % mod);
+}
 -----------------------
 #define ull unsigned long long #2^64
 #define ui unsigned int #2^32
