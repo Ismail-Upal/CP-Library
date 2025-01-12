@@ -85,3 +85,85 @@ Modular Division : (a / b) % m
 ==> a * b^(-1) % m
 ==> a * b^(m - 2) % m
 --------------------------------------------------------------------
+nPr and nCr : mod == prime :
+
+const int N = 1e6 + 9, mod = 1e9 + 7;
+int fact[N], ifact[N];
+
+int power(int x, int n) { // O(log n)
+  int ans = 1;
+  while (n > 0) {
+    if (n & 1) {
+      ans = 1LL * ans * x % mod;
+    }
+    x = 1LL * x * x % mod;
+    n >>= 1;
+  }
+  return ans;
+}
+
+int inverse(int a) { // O(log mod)
+  return power(a, mod - 2);
+}
+
+void prec() { // O(n)
+  fact[0] = 1;
+  for (int i = 1; i < N; i++) {
+    fact[i] = 1LL * fact[i - 1] * i % mod;
+  }
+  ifact[N - 1] = inverse(fact[N - 1]);
+  for (int i = N - 2; i >= 0; i--) {
+    ifact[i] = 1LL * ifact[i + 1] * (i + 1) % mod; // 1 / i! = (1 / (i + 1)!) * (i + 1)
+  }
+}
+
+int nPr(int n, int r) { // O(1)
+  if (n < r) return 0;
+  return 1LL * fact[n] * ifact[n - r] % mod;
+}
+
+int nCr(int n, int r) { // O(1)
+  if (n < r) return 0;
+  return 1LL * fact[n] * ifact[r] % mod * ifact[n - r] % mod;
+}
+
+int32_t main() {
+    prec();
+    int n, r; cin >> n >> r;
+    cout << nPr(n, r) << ' ' << nCr(n, r) << '\n';
+}
+// O(n + q)
+----------------------------------------------------------------
+nPr and nCr : mod is prime or not : O(n^2)
+
+const int N = 2005, mod = 1e9 + 7;
+
+int C[N][N], fact[N];
+void prec() { // O(n^2)
+  for (int i = 0; i < N; i++) {
+    C[i][0] = C[i][i] = 1;
+    for (int j = 1; j < i; j++) {
+      C[i][j] = (C[i - 1][j - 1] + C[i - 1][j]) % mod;
+    }
+  }
+  fact[0] = 1;
+  for (int i = 1; i < N; i++) {
+    fact[i] = 1LL * fact[i - 1] * i % mod;
+  }
+}
+
+int nCr(int n, int r) { // O(1)
+  if (n < r) return 0;
+  return C[n][r];
+}
+
+int nPr(int n, int r) { // O(1)
+  if (n < r) return 0;
+  return 1LL * nCr(n, r) * fact[r] % mod;
+}
+int32_t main() {
+    prec();
+    int n, r; cin >> n >> r;
+    cout << nPr(n, r) << ' ' << nCr(n, r) << '\n';
+}
+------------------------------------------------------------
