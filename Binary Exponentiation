@@ -38,6 +38,11 @@ ll mulmod(ll x, ll y, ll mod) { // O(log y) , (x * y) % mod
 ll mulmod(ll x, ll y, ll mod) { // O(1)
   return (ll)((__int128)x * y % mod);
 }
+  ull a, b; string m; cin >> a >> b >> m; # convert 128 bit int in string to u128 int 
+  u128 mod = 0;
+  for(auto i : m){
+    mod = mod * 10 + (i - '0');
+  }
 --------------------------------------------------------------
 #define ull unsigned long long #2^64
 #define ui unsigned int #2^32
