@@ -139,3 +139,19 @@ vector<int> prime_factor(int n){
     if(n > 1) factor.push_back(n);
     return factor;
 }
+---------------------------------------------------------------
+Smallest Prime Factor :
+---------------------------------------------------------------
+const int N = 1e6 + 9;
+int spf[N];
+void smallest_prime_fact(){
+    for (int i = 2; i < N; i++){
+        spf[i] = i;
+    }
+    for (int i = 2; i < N; i++){
+        for (int j = i; j < N; j += i){
+            spf[j] = min(spf[j], i);
+        }
+    }
+}
+----------------------------------------------------------
