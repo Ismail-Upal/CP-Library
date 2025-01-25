@@ -172,3 +172,29 @@ Divisibility and large number :
   return 0;
 }
 -------------------------------------------------
+Div by 2 : last digit is even
+Div by 5 : last digit is 0 / 5
+Div by 3 : Digit sum % 3 == 0
+Div by 9 : Digit sum % 9 == 0
+Div by 4 : last 2 Digit % 4 == 0
+Div by 6 : divisible by both 2 , 3
+Div by 11 : add and substract number sequentially % 11 == 0
+-----------------------------------------------------
+Every number has even divisors 
+1 * 50 = 50 | 2 * 25 = 50 | 5 * 10 = 50   || divisors = 6 
+
+Only perfect square has odd divisors
+1 * 25 = 25 | 5 * 5 = 25  || divisors = 3
+
+print number till 10^12 which has odd divisors :
+ans : for(int i  = 1; i *i ≤ n; i++) cout << i * i << “ “ ;
+1, 4, 9, 16, 25, 36, 49, 64 …………….
+--------------------------------------------------------
+The product of every consecutive k numbers is divisible by k . 
+product of subarray numbers divisible by subarray length .
+1 2 3 4 5 6 7 . .  . . . . . .
+--------------------------------------------------------
+How many number from 1 to N are Divisible by a, b : 
+Z = lcm(a, b)
+ans = N / Z
+-------------------------------------------------------
