@@ -1,1 +1,285 @@
+total Degree == 2 * total edges
+The handshaking lemma : number of nodes having odd degree is always even
+---------------------------
+Adjacency Matrix : 
+----------------------------
+const int N = 105;
+int g[N][N];
+int32_t main()
+{   
+    int n, m; cin >> n >> m;
+    while(m--){
+        int u, v; cin >> u >> v;
+        g[u][v] = 1;
+        g[v][u] = 1;
+    }
+    if(g[4][2]) cout << "YES" << endl;
+    else cout << "NO" << endl;
+    
+    return 0;
+}
+------------------------------
+Adjacency List : 
+------------------------------
+const int N = 105;
+vector<int> g[N];
+int indeg[N], outdeg[N];
+int32_t main()
+{   
+    int n, m; cin >> n >> m;
+    while(m--){
+        int u, v; cin >> u >> v;
+        g[u].push_back(v);
+        indeg[v]++; // for Directed graph
+        outdeg[u]++;
+    }
+    for(auto i : g[2]) cout << i << ' ';
+
+    // degrees
+    for(int i = 1; i <= n; i++) cout << g[i].size() << ' ';
+    
+    return 0;
+}
+------------------------------
+DFS : 
+------------------------------
+const int N = 1e5 + 3;
+vector<int> g[N];
+bool vis[N];
+
+void dfs(int u){
+    vis[u] = 1;
+    for(auto v : g[u]){
+        if(!vis[v]){
+            dfs(v);
+        }
+    }
+}
+int32_t main()
+{   
+    int n, m; cin >> n >> m;
+    while(m--){
+        int u, v; cin >> u >> v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+    // dfs(1);
+    // for(int i = 1; i <= n; i++){
+    //     if(!vis[i]){
+    //         cout << "Disconnected graph" << endl;
+    //         return 0;
+    //     }
+    // }
+    // cout << "Connected graph" << endl;
+
+    int ans = 0;
+    for(int i = 1; i <= n; i++){
+        if(!vis[i]){
+            dfs(i);
+            ans++;
+        }
+    }
+    cout << "Connected Components : " << ans << endl;
+    return 0;
+}
+-------------------------------------------
+BFS : 
+-------------------------------------------
+const int N = 1e5 + 3;
+vector<int> g[N]; 
+bool vis[N];
+int dis[N], par[N];
+
+void bfs(int u){
+    queue<int> q;
+    q.push(u);
+    vis[u] = 1;
+    dis[u] = 0;
+    while(!q.empty()){
+        int u = q.front();
+        q.pop();
+        for(auto v : g[u]){
+            if(!vis[v]){
+                q.push(v);
+                vis[v] = true;
+                dis[v] = dis[u] + 1;
+                par[v] = u;
+            }
+        }
+    }
+}
+int32_t main()
+{   
+    int n, m; cin >> n >> m;
+    while(m--){
+        int u, v; cin >> u >> v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+    bfs(1);
+
+    for(int i = 1; i <= n; i++){    // shortest dis from src node
+        cout << dis[i] << " ";
+    }
+    
+    int v = 4;  // shortest path from src to v
+    while(v != 1){
+        cout << v << " ";
+        v = par[v];
+    }
+    cout << 1 ;
+
+    return 0;
+}
+------------------------------------
+Bicoloring & Bipartite : 
+-----------------------------------
+const int N = 1e6;
+vector<int> g[N];
+bool vis[N], ok;
+int col[N];
+
+void dfs(int u){
+    vis[u] = true;
+    for(auto v : g[u]){
+        if(!vis[v]){
+            col[v] = col[u] ^ 1;
+            dfs(v);
+        }
+        else{
+            if(col[u] == col[v]){
+                ok = false;
+            }
+        }
+    }
+}
+int32_t main()
+{   
+    int n, m; cin >> n >> m;
+    while(m--){
+        int u, v; cin >> u >> v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+    ok = true;
+    for(int i = 1; i <= n; i++){
+        if(!vis[i]) dfs(i);
+    }
+    if(ok) cout << "Bipartite" ;
+    else cout << "not bipartite" ;
+    
+    return 0;
+}
+--------------------------------------------
+Has Cycle or not & printing Cycle nodes : 
+--------------------------------------------
+const int N = 1e6 ;
+vector<int> g[N];
+int col[N], par[N];
+bool cycle;
+
+void dfs(int u){
+    col[u] = 1;
+    for(auto v : g[u]){
+        if(col[v] == 0){
+            par[v] = u;
+            dfs(v);
+        }
+        else if(col[v] == 1){
+            cycle = true;
+            // you can track the cycle using par cycle
+        }
+    }
+    col[u] = 2;
+}
+int32_t main()
+{   
+    int n, m; cin >> n >> m;
+    for(int i = 1; i <= m; i++){
+        int u, v; cin >> u >> v;
+        g[u].push_back(v);
+    }
+    cycle = false;
+    for(int i = 1; i <= n; i++){
+        if(!col[i]){
+            dfs(1);
+        }
+    }
+    cout << (cycle ? "YES\n" : "NO\n");
+
+    // if has cycle : printing cycle : 
+    if(cycle){
+        for(int i = 1; i <= n; i++) cout << par[i] << ' ';
+    }
+
+    return 0;
+}
+------------------------------------------------
+topological sort : 
+-----------------------------------------------
+const int N = 1e6;
+vector<int> g[N];
+int indeg[N];
+bool vis[N];
+int32_t main()
+{   
+    int n, m; cin >> n >> m;
+    while(m--){
+        int u, v; cin >> u >> v;
+        g[u].push_back(v);
+        indeg[v]++;
+    }
+    vector<int> z;
+    for(int i = 1; i <= n; i++){
+        if(indeg[i] == 0){
+            z.push_back(i);
+            vis[i] = true;
+        }
+    }
+    vector<int> ans;
+    while(ans.size() < n){
+        if(z.empty()){
+            cout << "Impossible" << endl;
+            return 0;
+        }
+        int cur = z.back();
+        z.pop_back();
+        ans.push_back(cur);
+        for(auto v : g[cur]){
+            indeg[v]--;
+            if(!vis[v] and indeg[v] == 0){
+                z.push_back(v);
+                vis[v] = true;
+            }
+        }
+    }
+    for(auto x : ans) cout << x << ' ';
+    
+    return 0;
+}
+-------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
