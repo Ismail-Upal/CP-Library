@@ -258,6 +258,77 @@ int32_t main()
     return 0;
 }
 -------------------------------------------
+Tree : finding depth : 
+-------------------------------------------
+vector<int> g[105];
+int dep[105];
+void dfs(int u, int p){
+    dep[u] = dep[p] + 1;
+    for(auto v : g[u]){
+        if(v != p){
+            dfs(v, u);
+        }
+    }
+}
+int32_t main()
+{   
+    int n; cin >> n;    // n nodes (n - 1) edges in tree 
+    for(int i = 1; i < n; i++){
+        int u, v; cin >> u >> v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+    dfs(1, 0);
+    for(int i = 1; i <= n; i++){
+        cout << dep[i] << ' ';
+    }
+    
+    return 0;
+}
+--------------------------------------------
+Tree : Diameter : 
+-------------------------------------------
+const int N = 1e6;
+vector<int> g[N];
+int dep[N];
+int mx, node, ans;
+void dfs1(int u, int p){
+    dep[u] = dep[p] + 1;
+    if(dep[u] > mx){
+        mx = dep[u];
+        node = u;
+    }
+    for(auto v : g[u]){
+        if(v != p){
+            dfs1(v, u);
+        }
+    }
+}
+void dfs2(int u, int p){
+    dep[u] = dep[p] + 1;
+    ans = max(ans, dep[u] - 1);
+    for(auto v : g[u]){
+        if(v != p){
+            dfs2(v, u);
+        }
+    }
+}
+
+int32_t main()
+{   
+    int n; cin >> n;
+    for(int i = 1; i < n; i++){
+        int u, v; cin >> u >> v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+    dfs1(1, 0);
+    dfs2(node, 0);
+    cout << ans << endl;
+    
+    return 0;
+}
+----------------------------------------------------
 
 
 
