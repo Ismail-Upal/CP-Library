@@ -59,11 +59,21 @@ ull power(ull x, ull n) { // O(log n), (x^n) mod 2^64
 }
 ------------------------------------------------------------------
 Fermet Little Theorem : 
+-----------------------------------------------------
 If p is a prime and a is an integer not divisible by p, then
 # a^(p-1) % p == 1
 # a^n % p == a^(n % (p - 1)) % p
+It states that if p is a prime, then for any intger a, the number 
+(a ^ p) - a is an integer multiple of p.
+    (a ^ p) % mod == a
+or, (a ^ (p - 1)) % mod == 1
+or, (2 ^ (19 - 1)) % 19 == 1
+
+Inverse mod using flt's : 
+    (a ^ -1) % mod == (a ^ (m - 2))
 ------------------------------------------------------------------
 Modular Mul Inverse : a^(-1) % m
+-----------------------------------------------------------
 # a^(-1) % mod == b because (a * b) % mod == 1 if gcd(a, mod) = 1:coprime
 # if mod == prime .then, 
   a^(-1) % m == a^(m - 2) % m
@@ -86,12 +96,13 @@ int inverse(int a, int m) { // O(log m)
 }
 --------------------------------------------------------------------
 Modular Division : (a / b) % m
+---------------------------------------------------
 # (a / b) % m
 ==> a * b^(-1) % m
 ==> a * b^(m - 2) % m
 --------------------------------------------------------------------
 nPr and nCr : mod == prime :
-
+-------------------------------------------------------------
 const int N = 1e6 + 9, mod = 1e9 + 7;
 int fact[N], ifact[N];
 
@@ -140,7 +151,7 @@ int32_t main() {
 // O(n + q)
 ----------------------------------------------------------------
 nPr and nCr : mod is prime or not : O(n^2)
-
+-------------------------------------------------------------
 const int N = 2005, mod = 1e9 + 7;
 
 int C[N][N], fact[N];
