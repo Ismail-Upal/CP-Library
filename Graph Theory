@@ -49,12 +49,16 @@ vector<int> g[N];
 bool vis[N];
 
 void dfs(int u){
+    // take action on vertex after entering the vertex
     vis[u] = 1;
     for(auto v : g[u]){
         if(!vis[v]){
+            // take action on child before entering the child node
             dfs(v);
+            // take action on child after exiting child node
         }
     }
+    // take action on vertex before exiting the vertex
 }
 int32_t main()
 {   
