@@ -61,4 +61,4 @@ Modular Arithmetic :
 (a - b) % mod == ((a % mod) - (b % mod) + mod) % mod
 (a ^ b) % mod == ((a % mod) ^ b) % mod
 ------------------------------------------
-
+double pi = 2 * acos (0.0);
