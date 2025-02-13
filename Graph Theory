@@ -598,7 +598,66 @@ int main() {
     return 0;
 }
 --------------------------------------------------------------------------
+Bellman Ford : single source shortest path , with negative weight : O( V E )
+-----------------------------------------------------------------------------
+class edge {
+public:
+    int u, v, w;
+    edge(int u, int v, int w) {
+        this->u = u;
+        this->v = v;
+        this->w = w;
+    }
+};
 
+const int N = 1e5 + 5;
+int dis[N];
+
+int main() {
+    int n, m;
+    cin >> n >> m;
+    vector<edge> edge_list;
+
+    while (m--) {
+        int u, v, w;
+        cin >> u >> v >> w;
+        edge_list.push_back(edge(u, v, w));
+    }
+
+    fill(dis, dis + n, INT_MAX);
+    dis[0] = 0;
+
+    // Bellman-Ford Algorithm
+    for (int i = 1; i <= n - 1; i++) {
+        for (edge e : edge_list) {
+            int u = e.u, v = e.v, w = e.w;
+            if (dis[u] < INT_MAX && dis[u] + w < dis[v]) {
+                dis[v] = dis[u] + w;
+            }
+        }
+    }
+
+    // Negative Cycle Detection
+    bool cycle = false;
+    for (edge e : edge_list) {
+        int u = e.u, v = e.v, w = e.w;
+        if (dis[u] < INT_MAX && dis[u] + w < dis[v]) {
+            cycle = true;
+            break;
+        }
+    }
+
+    if (cycle) {
+        cout << "Negative cycle exists\n";
+    } else {
+        for (int i = 0; i < n; i++) {
+            cout << (dis[i] == INT_MAX ? "INF" : to_string(dis[i])) << endl;
+        }
+    }
+
+    return 0;
+}
+-----------------------------------------------------------------------
 
 
 
