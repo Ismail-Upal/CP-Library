@@ -153,6 +153,19 @@ void bfs(int u){
         }
     }
 }
+
+vector<int> path(int v) {
+    vector<int> ans;
+    if (!vis[v]) return ans;
+
+    while (v != 0) { 
+        ans.push_back(v);
+        v = par[v];
+    }
+    reverse(ans.begin(), ans.end());
+    return ans;
+}
+
 int32_t main()
 {   
     int n, m; cin >> n >> m;
@@ -167,12 +180,17 @@ int32_t main()
         cout << dis[i] << " ";
     }
     
-    int v = 4;  // shortest path from src to v
-    while(v != 1){
-        cout << v << " ";
-        v = par[v];
+    int v = 4;  // Shortest path from src (1) to v (4)
+    vector<int> shortest_path = path(v);
+    
+    if (shortest_path.empty()) 
+        cout << "No path to node " << v << endl;
+    else {
+        cout << "Shortest path to node " << v << ": ";
+        for (int node : shortest_path) 
+            cout << node << " ";
+        cout << endl;
     }
-    cout << 1 ;
 
     return 0;
 }
