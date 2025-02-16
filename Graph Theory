@@ -97,10 +97,7 @@ int di[] = {0, -1, 0, +1, -1, -1, +1, +1};
 int dj[] = {+1, 0, -1, 0, +1, -1, -1, +1};
 int n, m;
 bool valid(int i, int j){
-    if (i < 0 or i >= n or j < 0 or j >= m){
-        return false;
-    }
-    return true;
+    return (i >= 0 and i < n and j >= 0 and j < m);
 }
 void dfs(int si, int sj) {
     // work : cout << si << " " << sj << endl;
@@ -206,10 +203,7 @@ int di[] = {0, -1, 0, +1, -1, -1, +1, +1};
 int dj[] = {+1, 0, -1, 0, +1, -1, -1, +1};
 int n, m;
 bool valid(int i, int j){
-    if (i < 0 or i >= n or j < 0 or j >= m){
-        return false;
-    }
-    return true;
+    return (i >= 0 and i < n and j >= 0 and j < m);
 }
 
 void bfs(int si, int sj) {
