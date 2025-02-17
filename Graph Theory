@@ -458,7 +458,7 @@ vector<int> g[N];
 int indeg[N];
 int32_t main()
 {   
-    int n, m;
+    int n, m; cin >> n >> m;
     while(m--){
         int u, v; cin >> u >> v;
         g[u].push_back(v);
@@ -470,10 +470,7 @@ int32_t main()
             z.push(i);
         }
     }
-    if(z.empty()){
-        cout << "No" ;
-        return 0;
-    }
+    
     vector<int> ord;
     while(!z.empty()){
         int u = z.front();
@@ -486,7 +483,8 @@ int32_t main()
             }
         }
     }
-    for(auto x : ord) cout << x << " ";
+    if(ord.size() < n) cout << "IMPOSSIBLE" << endl;
+    else for(auto i : ord) cout << i << " ";
     fill(indeg, indeg + n + 1, 0);
     for(int i = 1; i <= n; i++) g[i].clear();
 
