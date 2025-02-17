@@ -408,7 +408,7 @@ int32_t main(){
     return 0;
 }
 ------------------------------------------------
-topological sort : 
+topological sort : stack 
 -----------------------------------------------
 const int N = 1e6;
 vector<int> g[N];
@@ -448,6 +448,48 @@ int32_t main()
     }
     for(auto x : ans) cout << x << ' ';
     
+    return 0;
+}
+------------------------------------------------
+topological sort : queue
+-----------------------------------------------
+const int N = 1e6;
+vector<int> g[N];
+int indeg[N];
+int32_t main()
+{   
+    int n, m;
+    while(m--){
+        int u, v; cin >> u >> v;
+        g[u].push_back(v);
+        indeg[v]++;
+    }
+    queue<int> z;
+    for(int i = 1; i <= n; i++){
+        if(indeg[i] == 0){
+            z.push(i);
+        }
+    }
+    if(z.empty()){
+        cout << "No" ;
+        return 0;
+    }
+    vector<int> ord;
+    while(!z.empty()){
+        int u = z.front();
+        z.pop();
+        ord.push_back(u);
+        for(auto v : g[u]){
+            indeg[v]--;
+            if(indeg[v] == 0){
+                z.push(v);
+            }
+        }
+    }
+    for(auto x : ord) cout << x << " ";
+    fill(indeg, indeg + n + 1, 0);
+    for(int i = 1; i <= n; i++) g[i].clear();
+
     return 0;
 }
 -------------------------------------------
