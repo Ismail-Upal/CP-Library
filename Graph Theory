@@ -492,6 +492,44 @@ int32_t main()
 
     return 0;
 }
+------------------------------------------------
+topological sort : cyclic graph 
+-----------------------------------------------
+const int N = 1e6;
+vector<int> g[N];
+vector<int> dfs_end_time_ord;
+bool vis[N];
+void dfs(int u){
+    vis[u] = 1;
+    for(auto v : g[u]){
+        if(!vis[v]){
+            dfs(v);
+        }
+    }
+    dfs_end_time_ord.push_back(u);
+}
+int32_t main()
+{  
+    int n, m; cin >> n >> m ;
+    while(m--){
+            int u, v; cin >> u >> v;
+            g[u].push_back(v);
+        }
+        for(int i = 1; i <= n; i++){
+            if(!vis[i]){
+                dfs(i);
+            }
+        }
+    reverse(dfs_end_time_ord.begin(), dfs_end_time_ord.end());
+    for(auto x : dfs_end_time_ord) cout << x << " ";
+    cout << endl;
+
+    fill(vis, vis + n + 1, 0);
+    for(int i = 1; i <= n; i++) g[i].clear();
+    dfs_end_time_ord.clear();
+
+    return 0;
+}
 -------------------------------------------
 Tree : finding depth & height : 
 -------------------------------------------
