@@ -285,47 +285,126 @@ int32_t main()
     return 0;
 }
 --------------------------------------------
-Has Cycle or not & printing Cycle nodes : 
+Has Cycle or not & printing Cycle nodes : Undirected :
 --------------------------------------------
-const int N = 1e6 ;
-vector<int> g[N];
-int col[N], par[N];
-bool cycle;
-
-void dfs(int u){
-    col[u] = 1;
+const int N = 1e5+3;
+vector<int> g[N], cycle;
+int par[N];
+bool vis[N];
+bool found;
+void dfs(int u, int p){
+    vis[u] = 1;
+    par[u] = p;
     for(auto v : g[u]){
-        if(col[v] == 0){
-            par[v] = u;
-            dfs(v);
+        if(found) return;
+        if(!vis[v]){
+            dfs(v, u);
         }
-        else if(col[v] == 1){
-            cycle = true;
-            // you can track the cycle using par cycle
+        else if(v != p){ // Found a cycle
+            found = 1;
+            int cur = u;
+            while(u != v){
+                cycle.push_back(u);
+                u = par[u];
+            }
+            cycle.push_back(v);
+            cycle.push_back(cur);
+            return;
         }
     }
-    col[u] = 2;
 }
 int32_t main()
 {   
+    opt();
     int n, m; cin >> n >> m;
-    for(int i = 1; i <= m; i++){
+    while(m--){
         int u, v; cin >> u >> v;
         g[u].push_back(v);
+        g[v].push_back(u);
     }
-    cycle = false;
     for(int i = 1; i <= n; i++){
-        if(!col[i]){
-            dfs(1);
+        if(!vis[i]){
+            dfs(i, 0);
+            if(found){
+                cout << cycle.size() << endl;
+                for(auto u : cycle) cout << u << " ";
+                cout << endl;
+                return 0;
+            }
         }
     }
-    cout << (cycle ? "YES\n" : "NO\n");
+    cout << "IMPOSSIBLE" << endl;
+    
+    return 0;
+}
+--------------------------------------------
+Has Cycle or not & printing Cycle nodes : Directed :
+--------------------------------------------
+const int N = 1e6 + 3;
+vector<int> g[N];
+int col[N], par[N];
+bool found = false;
+int cycle_start, cycle_end;
 
-    // if has cycle : printing cycle : 
-    if(cycle){
-        for(int i = 1; i <= n; i++) cout << par[i] << ' ';
+void dfs(int u) {
+    col[u] = 1; // Mark node as visited (processing)
+    for (auto v : g[u]) {
+        if (col[v] == 0) { // If not visited, continue DFS
+            par[v] = u;
+            dfs(v);
+            if (found) return;
+        } 
+        else if (col[v] == 1) { // Found a back edge (cycle)
+            found = true;
+            cycle_end = u;
+            cycle_start = v;
+            return;
+        }
+    }
+    col[u] = 2; // Mark node as fully processed
+}
+
+int32_t main(){   
+    opt();
+    int n, m;
+    cin >> n >> m;
+    
+    for(int i = 0; i < m; i++){
+        int u, v;
+        cin >> u >> v;
+        g[u].push_back(v); // Directed graph
     }
 
+    found = false;
+    cycle_start = -1;
+    
+    for(int i = 1; i <= n; i++){
+        if(!col[i]) {
+            dfs(i);
+            if(found) break;
+        }
+    }
+
+    if(found){
+        cout << "YES\n";
+
+        vector<int> cycle;
+        cycle.push_back(cycle_start);
+        for (int v = cycle_end; v != cycle_start; v = par[v]) {
+            cycle.push_back(v);
+        }
+        cycle.push_back(cycle_start); // Closing the cycle
+        reverse(cycle.begin(), cycle.end());
+
+        cout << cycle.size() << endl;
+        for (int v : cycle) {
+            cout << v << " ";
+        }
+        cout << endl;
+    }
+    else{
+        cout << "NO\n";
+    }
     return 0;
 }
 ------------------------------------------------
