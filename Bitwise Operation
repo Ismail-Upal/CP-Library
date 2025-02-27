@@ -1,6 +1,13 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+// print n in binary
+void print_binary(int n){
+    for(int i = 10; i >= 0; i--){
+        cout << ((n >> i) & 1) << " ";
+    }
+}
+
 // Checks if kth bit of x is set (1) or not (0)
 int check_kth_bit(int x, int k) {
   return (x >> k) & 1;
