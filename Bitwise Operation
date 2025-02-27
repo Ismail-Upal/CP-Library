@@ -104,3 +104,15 @@ int main() {
 
   return 0;
 }
+
+submask of x :
+--------------
+if(n | x == x) n is a submask of x
+
+exm : n = 5, x = 13
+
+      13 = 1 1 0 1
+       5 = 0 1 0 1
+    ----------------
+      13 = 1 1 0 1
+
