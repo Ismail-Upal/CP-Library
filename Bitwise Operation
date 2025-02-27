@@ -1,5 +1,6 @@
-#include<bits/stdc++.h>
-using namespace std;
+// total set bits
+cout << __builtin_popcountll(n) << endl;
+
 
 // print n in binary
 void print_binary(int n){
