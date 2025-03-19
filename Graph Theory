@@ -860,7 +860,7 @@ int main() {
     for (int i = 0; i < m; i++) {
         int u, v, w;
         cin >> u >> v >> w;
-        d[u][v] = w;  // Set distance for the directed edge
+        d[u][v] = min(d[u][v], w);  // Set distance for the directed edge
     }
 
     // Floyd-Warshall Algorithm
