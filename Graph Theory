@@ -1,5 +1,6 @@
 total Degree == 2 * total edges
 The handshaking lemma : number of nodes having odd degree is always even
+The number of edges to delete to make a graph acyclic or forest == m - (n - components)
 ---------------------------
 Adjacency Matrix : 
 ----------------------------
