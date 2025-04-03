@@ -7,6 +7,7 @@ void print_binary(int n){
     for(int i = 10; i >= 0; i--){
         cout << ((n >> i) & 1) << " ";
     }
+    cout << endl;
 }
 
 // Checks if kth bit of x is set (1) or not (0)
