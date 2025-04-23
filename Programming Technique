@@ -146,3 +146,43 @@ struct custom_hash {
 };
 unordered_map<long long int, int, custom_hash> mp; // this will work when the key is an int or long long int
 -------------------------------------------------------------------
+A Common way to track MEX : 
+------------------------------------------------------------------
+# here we compute number of segment or non-overlapping subarray thats mex is MEX
+            int seg = 0, mex = 0;
+            unordered_map<int, int, custom_hash> mp;
+            for(int i = 0; i < n; i++){
+                if(v[i] < MEX) mp[v[i]]++;
+                if(mp[v[i]] == 1) mex++;
+                
+                if(mex == MEX){
+                    seg++;
+                    mp.clear();
+                    mex = 0;
+                }
+            }
+-----------------------------------------------------------------
+# struct MEXTracker {
+    unordered_map<int, int> mp;
+    int current_mex = 0;
+
+    void add(int x) {
+        mp[x]++;
+        if (mp[current_mex] == 1) current_mex++;
+    }
+
+    void remove(int x) {
+        freq[x]--;
+        if (x < current_mex && mp[x] == 0) current_mex = x;
+    }
+
+    int get_mex() {
+        return current_mex;
+    }
+
+    void reset() {
+        freq.clear();
+        current_mex = 0;
+    }
+};
+----------------------------------------------------------------
