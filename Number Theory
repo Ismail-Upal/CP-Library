@@ -194,11 +194,52 @@ The product of every consecutive k numbers is divisible by k .
 product of subarray numbers divisible by subarray length .
 1 2 3 4 5 6 7 . .  . . . . . .
 --------------------------------------------------------
-How many number from 1 to N are Divisible by a, b : 
-Z = lcm(a, b)
-ans = N / Z
+A number d is a common divisor of x and y if it divides both.
+🧠 Mathematically:
+d is a common divisor if
+x % d == 0 && y % d == 0
+🧪 Example:
+Let’s take x = 12, y = 18
+Divisors of 12: 1, 2, 3, 4, 6, 12
+Divisors of 18: 1, 2, 3, 6, 9, 18
+👉 Common divisors = 1, 2, 3, 6
+🔧 How to find them:
+Find gcd(x, y)
+All divisors of gcd(x, y) are common divisors of x and y
+    # Common Divisors of x & y = Divisors of gcd(x, y)
+    # numbers of common divisors of (x, y) till N 
+        count = N / gcd(x, y)
+vector<int> commonDivisors(int x, int y, int n) {
+    int g = gcd(x, y);
+    vector<int> divisors;
+
+    for (int i = 1; i * i <= g; ++i) {
+        if (g % i == 0) {
+            if (i <= n) divisors.push_back(i);
+            if (g / i != i && g / i <= n) divisors.push_back(g / i);
+        }
+    }
+    sort(divisors.begin(), divisors.end());
+    return divisors;
+}
+------------------------------------------------------------------------
+A number m is a common multiple of x and y if it is divisible by both.
+🧠 Mathematically:
+m is a common multiple if
+m % x == 0 && m % y == 0
+🧪 Example:
+Let’s take x = 3, y = 4
+Multiples of 3: 3, 6, 9, 12, 15, 18, ...
+Multiples of 4: 4, 8, 12, 16, 20, ...
+👉 Common multiples = 12, 24, 36, 48, ...
+🔧 How to find them:
+Find lcm(x, y)
+All multiples of lcm(x, y) are common multiples
+    # Common Multiples of x & y = Multiples of lcm(x, y)
+    # numbers of common Multiples of (x, y) till N 
+        count = N / lcm(x, y)
 -------------------------------------------------------
-Formual : 
+Formuala : 
 -------------------------------------------------------
 long long sum_natural(int n) {
     return n * (n + 1) / 2;
