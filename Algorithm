@@ -1,0 +1,9 @@
+Kadane's Algorithm to find max / min sub array sum : O(n)
+-----------------------------------------------------
+int cur_sum = v[0], mx_sum = v[0];
+for(int i = 1; i < n; i++) {
+    cur_sum = max(v[i], cur_sum + v[i]);
+    mx_sum = max(mx_sum, cur_sum);
+}
+cout << mx_sum;
+ # max to min for min sub array 
