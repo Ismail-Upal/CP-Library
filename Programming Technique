@@ -186,3 +186,17 @@ A Common way to track MEX :
     }
 };
 ----------------------------------------------------------------
+Printing a Spiral : 
+------------------------------------------------------------
+void center_spiral(int r, int c, int n, int val, vector<vector<int>> &ans){
+    if(r == n or c == n or r < 0 or c < 0 or ans[r][c] != -1) return;
+
+    ans[r][c] = val--;
+    while(c + 1 < n and ans[r][c + 1] == -1) ans[r][++c] = val--;
+    while(r + 1 < n and ans[r + 1][c] == -1) ans[++r][c] = val--;
+    while(c > 0 and ans[r][c - 1] == -1) ans[r][--c] = val--;
+    while(r > 0 and ans[r - 1][c] == -1) ans[--r][c] = val--;
+
+    center_spiral(r, c + 1, n, val, ans);
+}
+-----------------------------------------------------
