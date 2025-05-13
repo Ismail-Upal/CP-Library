@@ -39,18 +39,25 @@ bool is_prime(int n){
     return true;
 }
 -------------------------------------------
-Sieve to get all Prime : O(N log log N) 
+Sieve of Erathesthones to get all Prime : O(N log log N) 
 -------------------------------------------
 const int N = 1e7;
 bool prime[N];
 
 void sieve() {
-    fill(prime, prime + N, true);
-    prime[0] = prime[1] = false;  
+    fill(prime, prime + N + 1, true); // Initialize all as prime
+    prime[0] = prime[1] = false;      // 0 and 1 are not prime
+    prime[2] = true;                  // 2 is prime
 
-    for (int i = 2; i * i < N; i++) {
+    // Mark even numbers > 2 as non-prime
+    for (int i = 4; i <= N; i += 2) {
+        prime[i] = false;
+    }
+
+    // Your provided loop for odd numbers
+    for (int i = 3; i * i <= N; i += 2) {
         if (prime[i]) {
-            for (int j = i * i; j < N; j += i) {
+            for (int j = i * i; j <= N; j += 2 * i) {
                 prime[j] = false;
             }
         }
