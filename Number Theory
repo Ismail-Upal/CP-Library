@@ -304,3 +304,18 @@ double telescoping_sum(int n) {
         sum += 1.0 / (i * (i + 1));
     return sum;
 }
+-------------------------------------------------------------
+FACT :
+--------------------------------------------------------------
+# multiplication of 4 contiguous number + 1 == square number ; (3 * 4 * 5 * 6) + 1 == 361 == 19 * 19
+# a number N , replace it with its digits sum untill single digits . we always get ((N - 1) % 9) + 1 
+    ; 365 -> 14 -> 5 == ((365 - 1) % 9) + 1 == 5
+# If sum of digits of N is divisible by 3 then N is also divisible by 3
+# a prime number has 2 divisors 
+# product of 2 prime numbers has 4 divisors
+# Any even number except 2 can be represent as a sum of 2 prime numbers : _ , _
+    For odd numbers if n - 2 is prime then sum of prime 2 , n - 2
+    or remove 3 and n becomes even . now n can be represent as a sum of 3 prime number : 3 , _ , _
+# any number can be represent as multiples of prime numbers
+# the smallest divisors of any number except 1 is a prime numbers
+
