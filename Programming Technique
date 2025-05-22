@@ -200,3 +200,16 @@ void center_spiral(int r, int c, int n, int val, vector<vector<int>> &ans){
     center_spiral(r, c + 1, n, val, ans);
 }
 -----------------------------------------------------
+Function to convert __int128 to string :
+----------------------------------------------------
+string to_string_i128(i128 n) {
+    if (n == 0) return "0";
+    string s;
+    while (n > 0) {
+        s += '0' + (n % 10);
+        n /= 10;
+    }
+    reverse(s.begin(), s.end());
+    return s;
+}
+-------------------------------------------------
