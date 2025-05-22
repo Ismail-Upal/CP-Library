@@ -97,9 +97,8 @@ bool vis[N][N];
 int di[] = {0, -1, 0, +1, -1, -1, +1, +1};
 int dj[] = {+1, 0, -1, 0, +1, -1, -1, +1};
 int n, m;
-bool valid(int i, int j){
-    return (i >= 0 and i < n and j >= 0 and j < m);
-}
+bool valid(int i, int j){ return (i >= 0 and i < n and j >= 0 and j < m); }
+
 void dfs(int si, int sj) {
     // work : cout << si << " " << sj << endl;
     vis[si][sj] = true;
@@ -133,9 +132,9 @@ const int N = 1e5 + 3;
 vector<int> g[N]; 
 bool vis[N];
 int dis[N], par[N];
+queue<int> q;
 
 void bfs(int u){
-    queue<int> q;
     q.push(u);
     vis[u] = 1;
     dis[u] = 0;
@@ -203,12 +202,10 @@ int dis[N][N]; // shortest distance
 int di[] = {0, -1, 0, +1, -1, -1, +1, +1};
 int dj[] = {+1, 0, -1, 0, +1, -1, -1, +1};
 int n, m;
-bool valid(int i, int j){
-    return (i >= 0 and i < n and j >= 0 and j < m);
-}
+bool valid(int i, int j){ return (i >= 0 and i < n and j >= 0 and j < m); }
+queue<pair<int, int>> q;
 
 void bfs(int si, int sj) {
-    queue<pair<int, int>> q;
     q.push({si, sj});
     vis[si][sj] = true;
     dis[si][sj] = 0;
