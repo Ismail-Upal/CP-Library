@@ -213,3 +213,10 @@ string to_string_i128(i128 n) {
     return s;
 }
 -------------------------------------------------
+Square matrix:
+Rotation	From (i, j) to
+90° clockwise	(j, N - 1 - i)
+180°	(N - 1 - i, N - 1 - j)
+270° clockwise	(N - 1 - j, i)
+90° counter-clockwise	(N - 1 - j, i)
+------------------------------------------------
