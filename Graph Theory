@@ -703,20 +703,25 @@ Dijkstra : single source shortest path, non negative weighted graph : O ( E log 
 const int N = 100;
 vector<pair<int, int>> g[N];
 int dis[N];
+struct cmp{
+    bool operator()(pair<int, int>a, pair<int, int>b){
+        return a.second > b.second;
+    }
+};
 
 void dijkstra(int src) {
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> q;
+    priority_queue<pair<int, int>, vector<pair<int, int>>, cmp> pq;
     fill(dis, dis + N, INT_MAX); // Initialize distances
 
     dis[src] = 0;
-    q.push({0, src}); // Push (distance, node)
+    pq.push({src, 0}); // Push (node, cost)
 
-    while (!q.empty()) {
-        auto par = q.top();
-        q.pop();
+    while (!pq.empty()) {
+        auto par = pq.top();
+        pq.pop();
         
-        int cost = par.first;
-        int node = par.second;
+        int node = par.first;
+        int cost = par.second;
 
         if (cost > dis[node]) continue;
 
@@ -726,7 +731,7 @@ void dijkstra(int src) {
 
             if (cost + child_cost < dis[child_node]) {
                 dis[child_node] = cost + child_cost;
-                q.push({dis[child_node], child_node});
+                pq.push({child_node, dis[child_node]});
             }
         }
     }
