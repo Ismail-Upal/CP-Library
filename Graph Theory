@@ -720,18 +720,17 @@ void dijkstra(int src) {
         auto par = pq.top();
         pq.pop();
         
-        int node = par.first;
-        int cost = par.second;
+        int u = par.first;
+        int u_w = par.second;
 
-        if (cost > dis[node]) continue;
+        if(u_w > dis[u]) continue;
+        for(auto child : g[u]){
+            int v = child.first;
+            int w = child.second;
 
-        for (auto child : g[node]) {
-            int child_node = child.first;
-            int child_cost = child.second;
-
-            if (cost + child_cost < dis[child_node]) {
-                dis[child_node] = cost + child_cost;
-                pq.push({child_node, dis[child_node]});
+            if(u_w + w < dis[v]){
+                dis[v] = u_w + w;
+                pq.push({v, dis[v]});
             }
         }
     }
