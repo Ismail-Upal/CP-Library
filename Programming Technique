@@ -220,3 +220,4 @@ Rotation	From (i, j) to
 270° clockwise	(N - 1 - j, i)
 90° counter-clockwise	(N - 1 - j, i)
 ------------------------------------------------
+working with string : vector<int> str(26, 0); for(auto i : s) str[i - 'a']++; is best
