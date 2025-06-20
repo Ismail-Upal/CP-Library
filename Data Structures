@@ -1,1 +1,57 @@
+#include<bits/stdc++.h>
+using namespace std;
+const int N = 1e5;
 
+int par[N], Size[N], Rank[N];
+
+void make(int u){
+    par[u] = u;
+    Size[u] = 1;
+    Rank[u] = 0;
+}
+
+// find leader of u
+int find(int u){
+    if(u == par[u]) return u;
+    // path compression
+    return par[u] = find(par[u]);
+}
+
+// grouping two node
+void Union(int u, int v){
+    u = find(u);
+    v = find(v);
+    if(u != v){
+        // union by Size
+        if(Size[u] < Size[v]) swap(u, v);
+        par[v] = u;
+        Size[u] += Size[v];
+        /*
+        union by Rank
+        if(Rank[u] < Rank[v]) swap(u, v);
+        par[v] = u;
+        if(Rank[u] == Rank[v]) Rank[u]++;*/
+    }
+    // else cout << "they are already friends or in same grp" ;
+}
+
+int32_t main()
+{   
+    int n, k; cin >> n >> k;
+    for(int i = 1; i <= n; i++){
+        make(i);
+    }
+
+    while(k--){
+        int u, v; cin >> u >> v;
+        Union(u, v);
+    }
+
+    int component = 0;
+    for(int i = 1; i <= n; i++){
+        if(find(i) == i) component++;
+    }
+    cout << component;
+    
+    return 0;
+}
