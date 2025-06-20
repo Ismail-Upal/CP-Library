@@ -60,9 +60,20 @@ int32_t main()
 -----------------------------------------------------------------------
 STL 
 ----------------------------------------------------------------------
-multiset<int> se ;
-se.insert(n); // inserting n in set se
-se.erase(se.find(n)); // deleting a single n for set se
-int mx = *se.rbegin();
-int mn = *se.begin();
+multiset<int> mse;
+| Code                            | Description                           | Time Complexity  |
+| ------------------------------- | ------------------------------------- | ---------------- |
+| mse.insert(x);                | Inserts `x`                           | O(log n)         |
+| mse.erase(mse.find(x));       | Deletes **one** occurrence of `x`     | O(log n)         |
+| mse.erase(x);                 | Deletes **all** occurrences of `x`    | O(log n + count) |
+| int cnt = mse.count(x);       | Counts how many times `x` appears     | O(log n)         |
+| auto it = mse.find(x);        | Iterator to any one occurrence of `x` | O(log n)         |
+| int mx = *mse.rbegin();       | Returns **maximum** element           | O(1)             |
+| int mn = *mse.begin();        | Returns **minimum** element           | O(1)             |
+| auto lo = mse.lower_bound(x); | Iterator to first element **≥ `x`**   | O(log n)         |
+| auto up = mse.upper_bound(x); | Iterator to first element **> `x`**   | O(log n)         |
+| auto p = mse.equal_range(x);  | Pair of iterators `[≥x, >x)`          | O(log n)         |
+| mse.clear();                  | Removes all elements                  | O(n)             |
+| mse.size();                   | Total number of elements              | O(1)             |
+| mse.empty();                  | Returns `true` if empty               | O(1)             |
 
