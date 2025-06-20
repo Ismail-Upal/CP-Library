@@ -1,3 +1,5 @@
+DSU
+---------------------------------------------------------
 #include<bits/stdc++.h>
 using namespace std;
 const int N = 1e5;
@@ -55,3 +57,12 @@ int32_t main()
     
     return 0;
 }
+-----------------------------------------------------------------------
+STL 
+----------------------------------------------------------------------
+multiset<int> se ;
+se.insert(n); // inserting n in set se
+se.erase(se.find(n)); // deleting a single n for set se
+int mx = *se.rbegin();
+int mn = *se.begin();
+
