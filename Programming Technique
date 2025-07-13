@@ -162,17 +162,17 @@ A Common way to track MEX :
                 }
             }
 -----------------------------------------------------------------
-# struct MEXTracker {
+struct MEXTracker {
     unordered_map<int, int> mp;
     int current_mex = 0;
 
     void add(int x) {
         mp[x]++;
-        if (mp[current_mex] == 1) current_mex++;
+        while (mp[current_mex] > 0) current_mex++;
     }
 
     void remove(int x) {
-        freq[x]--;
+        mp[x]--;
         if (x < current_mex && mp[x] == 0) current_mex = x;
     }
 
@@ -181,10 +181,11 @@ A Common way to track MEX :
     }
 
     void reset() {
-        freq.clear();
+        mp.clear();
         current_mex = 0;
     }
 };
+
 ----------------------------------------------------------------
 Printing a Spiral : 
 ------------------------------------------------------------
