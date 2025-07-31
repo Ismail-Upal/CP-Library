@@ -889,7 +889,7 @@ int main() {
     return 0;
 }
 ------------------------------------------------------------
-Minimum Spanning Tree - MST - Prims :
+Minimum Spanning Tree - MST - Prims : - O(ElogE)
 -----------------------------------------------------------
 const int N = 1e5 + 3;
 vector<pair<int, int>> g[N];
@@ -934,7 +934,7 @@ int main()
     return 0;
 }
 ------------------------------------------------------------
-Minimum Spanning Tree - MST - Kruskal : using DSU
+Minimum Spanning Tree - MST - Kruskal : using DSU - O(ElogE)
 -----------------------------------------------------------
 const int N = 1e5 + 3;
 int par[N], Size[N];
