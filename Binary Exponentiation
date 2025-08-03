@@ -14,9 +14,7 @@ int power(int x, ll n, int mod) { // O(log n) recursive
 int power(int x, ll n, int mod) { // O(log n) iterative
   int ans = 1 % mod;
   while (n > 0) {
-    if (n & 1) {
-      ans = 1LL * ans * x % mod;
-    }
+    if (n & 1) ans = 1LL * ans * x % mod;
     x = 1LL * x * x % mod;
     n >>= 1;
   }
@@ -26,9 +24,7 @@ int power(int x, ll n, int mod) { // O(log n) iterative
 ll mulmod(ll x, ll y, ll mod) { // O(log y) , (x * y) % mod
   ll ans = 0;
   while (y > 0) {
-    if (y & 1) {
-      ans = (ans + x) % mod;
-    }
+    if (y & 1) ans = (ans + x) % mod;
     x = (x + x) % mod;
     y >>= 1;
   }
@@ -49,9 +45,7 @@ ll mulmod(ll x, ll y, ll mod) { // O(1)
 ull power(ull x, ull n) { // O(log n), (x^n) mod 2^64
   ull ans = 1;
   while (n > 0) {
-    if (n & 1) {
-      ans *= x;
-    }
+    if (n & 1) ans *= x;
     x *= x;
     n >>= 1;
   }
@@ -81,9 +75,7 @@ Modular Mul Inverse : a^(-1) % m
 int power(int x, int n, int mod) { // O(log n)
   int ans = 1 % mod;
   while (n > 0) {
-    if (n & 1) {
-      ans = 1LL * ans * x % mod;
-    }
+    if (n & 1) ans = 1LL * ans * x % mod;
     x = 1LL * x * x % mod;
     n >>= 1;
   }
@@ -100,6 +92,10 @@ Modular Division : (a / b) % m
 # (a / b) % m
 ==> a * b^(-1) % m
 ==> a * b^(m - 2) % m
+
+int modDiv(int a, int b, int mod) {
+    return 1LL * a * power(b, mod - 2, mod) % mod;
+}
 --------------------------------------------------------------------
 nPr and nCr : mod == prime :
 -------------------------------------------------------------
