@@ -65,58 +65,48 @@ int main()
 ---------------------------------------------------------
 DSU
 ---------------------------------------------------------
-#include<bits/stdc++.h>
-using namespace std;
-const int N = 1e5;
+struct DSU{
+    vector<int> par, Size, Rank;
 
-int par[N], Size[N], Rank[N];
+    DSU(int n){
+        par.resize(n + 1);
+        Size.assign(n + 1, 1);
+        Rank.assign(n + 1, 0);
+        for(int i = 0; i <= n; i++) par[i] = i; 
+    }
 
-void make(int u){
-    par[u] = u;
-    Size[u] = 1;
-    Rank[u] = 0;
-}
+    int find(int u){
+        if(u == par[u]) return u;
+        return par[u] = find(par[u]);
+    }
 
-// find leader of u
-int find(int u){
-    if(u == par[u]) return u;
-    // path compression
-    return par[u] = find(par[u]);
-}
-
-// grouping two node
-void Union(int u, int v){
-    u = find(u);
-    v = find(v);
-    if(u != v){
-        // union by Size
+    bool unite(int u, int v){
+        u = find(u);
+        v = find(v);
+        if(u == v) return false;
         if(Size[u] < Size[v]) swap(u, v);
         par[v] = u;
         Size[u] += Size[v];
-        /*
-        union by Rank
-        if(Rank[u] < Rank[v]) swap(u, v);
-        par[v] = u;
-        if(Rank[u] == Rank[v]) Rank[u]++;*/
+        // if(Rank[u] < Rank[v]) swap(u, v);
+        // par[v] = u;
+        // if(Rank[u] == Rank[v]) Rank[u]++;
+        return true;
     }
-    // else cout << "they are already friends or in same grp" ;
-}
+};
 
-int32_t main()
+int main()
 {   
     int n, k; cin >> n >> k;
-    for(int i = 1; i <= n; i++){
-        make(i);
-    }
+    DSU dsu(n);
 
     while(k--){
         int u, v; cin >> u >> v;
-        Union(u, v);
+        dsu.unite(u, v);
     }
 
     int component = 0;
     for(int i = 1; i <= n; i++){
-        if(find(i) == i) component++;
+        if(dsu.find(i) == i) component++;
     }
     cout << component;
     
