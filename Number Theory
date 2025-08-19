@@ -185,6 +185,7 @@ Div by 3 : Digit sum % 3 == 0
 Div by 9 : Digit sum % 9 == 0
 Div by 4 : last 2 Digit % 4 == 0
 Div by 6 : divisible by both 2 , 3
+Div by 10 : last digit is 0
 Div by 11 : add and substract number sequentially % 11 == 0
 -----------------------------------------------------
 Every number has even divisors 
