@@ -297,6 +297,7 @@ void dfs(int u, int p){
         if(found) return;
         if(!vis[v]){
             dfs(v, u);
+            if(found) return;
         }
         else if(v != p){ // Found a cycle
             found = 1;
@@ -323,15 +324,15 @@ int32_t main()
     for(int i = 1; i <= n; i++){
         if(!vis[i]){
             dfs(i, 0);
-            if(found){
-                cout << cycle.size() << endl;
-                for(auto u : cycle) cout << u << " ";
-                cout << endl;
-                return 0;
-            }
+            if(found) break;
         }
     }
-    cout << "IMPOSSIBLE" << endl;
+    
+    if(found){
+        cout << cycle.size() << endl;
+        for(auto i : cycle) cout << i << " ";
+    }
+    else cout << "IMPOSSIBLE";
     
     return 0;
 }
