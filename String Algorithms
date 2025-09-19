@@ -1,0 +1,76 @@
+Manacher's Algo to find longest palindromic substring : O(n) 
+------------------------------------------------------------------
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Manacher {
+    vector<int> p; 
+    string t;      
+    string s; 
+
+    void run(const string &str) {
+        int n = str.size();
+        p.assign(n, 0);
+        int l = 0, r = -1;
+
+        for (int i = 0; i < n; i++) {
+            int k = (i > r) ? 1 : min(p[l + r - i], r - i + 1);
+            while (i - k >= 0 && i + k < n && str[i - k] == str[i + k]) k++;
+            p[i] = k - 1;
+            if (i + p[i] > r) {
+                l = i - p[i];
+                r = i + p[i];
+            }
+        }
+    }
+
+    void build(const string &_s) {
+        s = _s;
+        t.clear();
+        for (char c : s) {
+            t.push_back('#');
+            t.push_back(c);
+        }
+        t.push_back('#');
+        run(t);
+    }
+
+    int getLongestPal(int cen, bool odd) {
+        int pos = 2 * cen + 1 + (!odd);
+        return p[pos];
+    }
+
+    bool checkPalindrome(int l, int r) {
+        int cen = (l + r) / 2;
+        bool odd = ((r - l + 1) % 2 == 1);
+        return (r - l + 1) <= getLongestPal(cen, odd);
+    }
+
+    string getLongestPalSubstring() {
+        int n = t.size();
+        int bestLen = 0, bestCenter = 0;
+
+        for (int i = 0; i < n; i++) {
+            if (p[i] > bestLen) {
+                bestLen = p[i];
+                bestCenter = i;
+            }
+        }
+
+        int start = (bestCenter - bestLen) / 2;
+        return s.substr(start, bestLen);
+    }
+}M;
+
+int main() {
+    string s = "babbabbabc";
+    M.build(s);
+
+    cout << "Longest Palindromic Substring: " << M.getLongestPalSubstring() << "\n";
+    cout << "Length: " << M.getLongestPalSubstring().size() << "\n";
+
+    cout << "Check [0..3] -> " << (M.checkPalindrome(0, 3) ? "Palindrome" : "Not Palindrome") << "\n";
+    cout << "Check [2..6] -> " << (M.checkPalindrome(2, 6) ? "Palindrome" : "Not Palindrome") << "\n";
+
+    return 0;
+}
