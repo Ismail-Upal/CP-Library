@@ -136,6 +136,59 @@ int main() {
     // output : 2 3 4
     return 0;
 }
+----------------------------------------------------------------------
+Policy Based Data Structure : Ordered MultiSet
+------------------------------------------------------------------------
+#include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+using namespace std;
+
+template <typename T>
+struct pbds_multiset {
+    using pT = pair<T,int>;
+    tree<pT, null_type, less<pT>, rb_tree_tag, tree_order_statistics_node_update> t;
+    int counter = 0; // internal counter for uniqueness
+    void insert(T x) {
+        t.insert({x, counter++});
+    }
+    void erase_one(T x) {
+        auto it = t.lower_bound({x, 0});
+        if(it != t.end() && it->first == x) t.erase(it);
+    }
+    int size() {
+        return t.size();
+    }
+    T kth(int k) {
+        // 0-indexed
+        return t.find_by_order(k)->first;
+    }
+    int order_of(T x) {
+        return t.order_of_key({x, 0});
+    }
+    bool contains(T x) {
+        return t.lower_bound({x,0}) != t.end() && t.lower_bound({x,0})->first == x;
+    }
+};
+
+int main() {
+    pbds_multiset<int> ms;
+
+    ms.insert(5);
+    ms.insert(2);
+    ms.insert(5);
+
+    cout << "0-th: " << ms.kth(0) << endl; // 2
+    cout << "1-th: " << ms.kth(1) << endl; // 5
+    cout << "2-th: " << ms.kth(2) << endl; // 5
+
+    cout << "order_of 5: " << ms.order_of(5) << endl; // 1
+
+    ms.erase_one(5);
+    cout << "order_of 5 after erase: " << ms.order_of(5) << endl; // 1
+}
+
 -----------------------------------------------------------------------
 STL 
 ----------------------------------------------------------------------
