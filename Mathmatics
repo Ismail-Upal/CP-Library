@@ -1,0 +1,52 @@
+ll lcm(ll a, ll b){ // safer 
+    return a / __gcd(a, b) * b;
+}
+-----------------------------------------------------
+Given n and an array divisors[], count how many numbers between 1 and n are divisible by all of them.
+A number divisible by all of them must be a multiple of their LCM.
+    ans = n / LCM
+link: https://codeforces.com/problemset/problem/630/J
+-------------------------------------------------------
+Inclusion-Exclusion method :inclusion-exclusion principle that says that size of each single set should be added, size of pairwise intersections should be subtracted, size of all intersections of three sets should be added and so on.
+    count = (n / di) + (n / dj) + (n / dk)
+            - (n / di dj) - (n / dj dk) - (n / dk di)
+            + (n / di dj dk)
+    add for odd size sets 
+    substract for odd size sets 
+----------------------------------------------------------
+Given n and an array divisors[], count how many numbers between 1 and n are divisible by any of them.
+    Count = ∑ (n / di)
+    - ∑ (n / lcm(di, dj))
+    + ∑ (n / lcm(di, dj, dk))
+    - ... and so on.
+ll n;
+int k;
+cin >> n >> k;
+vector<ll> d(k);
+for (int i = 0; i < k; i++) cin >> d[i];
+
+ll ans = 0;
+// Inclusion–Exclusion over all non-empty subsets
+for (int mask = 1; mask < (1 << k); mask++) {
+    ll L = 1;
+    int bits = 0;
+    bool overflow = false;
+
+    for (int i = 0; i < k; i++) {
+        if (mask >> i & 1) {
+            bits++;
+            L = lcm(L, d[i]);
+            if (L > n) { overflow = true; break; }
+        }
+    }
+
+    if (overflow) continue;
+
+    ll cnt = n / L;
+    if (bits % 2 == 1) ans += cnt;
+    else ans -= cnt;
+}
+
+cout << ans << "\\n";
+link: https://codeforces.com/problemset/problem/630/K
+------------------------------------------------------------------
