@@ -225,3 +225,12 @@ working with string : vector<int> str(26, 0); for(auto i : s) str[i - 'a']++; is
 -----------------------------------------------------
 loga(b) = log10(a) / log10(b)
 number of digit of a decimal number in a single base = logb(n) + 1
+----------------------------------------------------------------------------
+#include <chrono>
+using namespace std::chrono;
+
+auto start = high_resolution_clock::now();
+auto stop = high_resolution_clock::now();
+auto duration = duration_cast<milliseconds>(stop - start);
+cerr << "Time: " << duration.count() << "ms" << endl;
+---------------------------------------------------------------------------
