@@ -490,40 +490,44 @@ int32_t main()
     return 0;
 }
 ------------------------------------------------
-topological sort : cyclic graph 
+topological sort : DAG
 -----------------------------------------------
 const int N = 1e6;
 vector<int> g[N];
-vector<int> dfs_end_time_ord;
-bool vis[N];
-void dfs(int u){
+vector<int> top_order;
+int vis[N]; 
+bool cycle;
+void dfs(int u) {
     vis[u] = 1;
-    for(auto v : g[u]){
-        if(!vis[v]){
+    for (int v : g[u]) {
+        if (!vis[v]) {
             dfs(v);
         }
+        else if (vis[v] == 1) {
+            cycle = true; 
+            return;
+        }
     }
-    dfs_end_time_ord.push_back(u);
+    vis[u] = 2;
+    top_order.push_back(u);
 }
-int32_t main()
-{  
-    int n, m; cin >> n >> m ;
-    while(m--){
-            int u, v; cin >> u >> v;
-            g[u].push_back(v);
-        }
-        for(int i = 1; i <= n; i++){
-            if(!vis[i]){
-                dfs(i);
-            }
-        }
-    reverse(dfs_end_time_ord.begin(), dfs_end_time_ord.end());
-    for(auto x : dfs_end_time_ord) cout << x << " ";
-    cout << endl;
-
-    fill(vis, vis + n + 1, 0);
-    for(int i = 1; i <= n; i++) g[i].clear();
-    dfs_end_time_ord.clear();
+int main() {
+    int n, m;
+    cin >> n >> m;
+    while (m--) {
+        int u, v;
+        cin >> u >> v;
+        g[u].push_back(v);
+    }
+    for (int i = 1; i <= n; i++) {
+        if (!vis[i]) dfs(i);
+    }
+    if(cycle) {
+        cout << "-1\n";
+        return 0;
+    }
+    reverse(top_order.begin(), top_order.end());
+    for (int x : top_order) cout << x << " ";
 
     return 0;
 }
