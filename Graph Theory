@@ -716,7 +716,7 @@ struct cmp{
 
 void dijkstra(int src) {
     priority_queue<pair<int, int>, vector<pair<int, int>>, cmp> pq;
-    fill(dis, dis + N, INT_MAX); // Initialize distances
+    fill(dis, dis + N, 1e9); // Initialize distances
 
     dis[src] = 0;
     pq.push({src, 0}); // Push (node, cost)
@@ -726,15 +726,15 @@ void dijkstra(int src) {
         pq.pop();
         
         int u = par.first;
-        int u_w = par.second;
+        int uw = par.second;
 
-        if(u_w > dis[u]) continue;
+        if(uw > dis[u]) continue;
         for(auto child : g[u]){
             int v = child.first;
-            int w = child.second;
+            int vw = child.second;
 
-            if(u_w + w < dis[v]){
-                dis[v] = u_w + w;
+            if(uw + vw < dis[v]){
+                dis[v] = uw + vw;
                 pq.push({v, dis[v]});
             }
         }
