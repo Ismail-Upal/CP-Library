@@ -2,16 +2,16 @@
 Find divisors sqrt : O(sqrt(N))
 -----------------------------------------
 vector<int> find_divisors(int n) {
-    vector<int> divisors;
+    vector<int> divs;
     for (int i = 1; i * i <= n; ++i) {
         if (n % i == 0) {
-            divisors.push_back(i);
+            divs.push_back(i);
             if (i != n / i) {
-                divisors.push_back(n / i);
+                divs.push_back(n / i);
             }
         }
     }
-    return divisors;
+    return divs;
 }
 ------------------------------------------
 Find number of divisors from 1 to N : O(NlogN)
