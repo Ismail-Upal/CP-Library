@@ -3,7 +3,7 @@ Find divisors sqrt : O(sqrt(N))
 -----------------------------------------
 vector<int> find_divisors(int n) {
     vector<int> divs;
-    for (int i = 1; i * i <= n; ++i) {
+    for (int i = 1; i * i <= n; i++) {
         if (n % i == 0) {
             divs.push_back(i);
             if (i != n / i) {
