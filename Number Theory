@@ -39,16 +39,16 @@ bool is_prime(int n){
     return 1;
 }
 -------------------------------------------
-Sieve of Erathesthones to get all Prime : O(N log log N) 
+Sieve of Erathesthones to get all Prime : O(N log(log N)) 
 -------------------------------------------
 const int N = 1e7 + 5;
 vector<bool> prime(N + 1, 1);
 
 void sieve() {
     prime[1] = 0;
-    for(int i = 2; i * i <= N; i += 2){
+    for(int i = 2; i <= N; i++){
         if(prime[i]){
-            for(int j = i; j <= N; j += i){
+            for(int j = i * i; j <= N; j += i){
                 prime[j] = 0;
             }
         }
