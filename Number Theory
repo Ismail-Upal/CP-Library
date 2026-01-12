@@ -80,6 +80,15 @@ else odd
 (a + b) % M = ((a % M) + (b % M)) % M
 (a * b) % M = ((a % M) * (b % M)) % M
 (a - b) % M = ((a % M) - (b % M) + M) % M
+int modSum(int a, int b){
+    return ((a % M) + (b % M)) % M;
+}
+int modSub(int a, int b){
+    return ((a % M) - (b % M) + M) % M;
+}
+int modMul(int a, int b){
+    return ((a % M) * (b % M)) % M;
+}
 -------------------------------------------------------------
 Binary Exponentiation : (a^b) % M : O(logb)
 ---------------------------------------------------------
