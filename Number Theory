@@ -81,7 +81,7 @@ else odd
 (a * b) % M = ((a % M) * (b % M)) % M
 (a - b) % M = ((a % M) - (b % M) + M) % M
 -------------------------------------------------------------
-(a^b) % M : O(logb)
+Binary Exponentiation : (a^b) % M : O(logb)
 ---------------------------------------------------------
 int binpow(int a, int b){
     if(b == 0) return 1 % M;
@@ -95,7 +95,18 @@ int binpow(int a, int b){
         return (1ll * a * t) % M;
     }
 }
-----------------------------------------------------------------------
+----------------------------------------------------------
+Modular Division : (a / b) % M by multiplicative inverse
+-----------------------------------------------------------
+(a / b) % M = ((a % M) * (b^(-1) % M) % M
+if gcd(b, M) = 1 mean coprime
+then
+    b^(-1) % M = b^(M - 2) % M 
+
+int modDiv(int a, int b){
+    return 1ll * (a % M) * binpow(b, M - 2) % M;
+}
+---------------------------------------------------------------
  Is Prime : miller rabin : n <= 18 , O(k log^3(n)) : best 
 -----------------------------------------------------------------------
 typedef long long ll;
