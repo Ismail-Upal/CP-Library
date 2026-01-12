@@ -98,8 +98,9 @@ int binpow(int a, int b){
 ----------------------------------------------------------
 Modular Division : (a / b) % M by multiplicative inverse
 -----------------------------------------------------------
-(a / b) % M = ((a % M) * (b^(-1) % M) % M
-if gcd(b, M) = 1 mean coprime
+fermats little theorem 
+(a / b) % M = ((a % M) * (b^(-1) % M) % M 
+if gcd(b, M) = 1 : coprime or M is prime
 then
     b^(-1) % M = b^(M - 2) % M 
 
