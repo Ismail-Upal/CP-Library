@@ -93,6 +93,10 @@ struct DSU{
         // if(Rank[u] == Rank[v]) Rank[u]++;
         return true;
     }
+
+    int getSize(int u){
+        return Size[find(u)];
+    }
 };
 
 int main()
@@ -110,8 +114,8 @@ int main()
         if(dsu.find(i) == i) component++;
     }
     cout << component;
-    
-    return 0;
+
+    for(int i = 1; i <= n; i++) cout << dsu.getSize(i) << " ";
 }
 -------------------------------------------------------------------------
 Policy Based Data Structure : Ordered set 
