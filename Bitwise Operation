@@ -1,6 +1,8 @@
 // total set bits
 cout << __builtin_popcountll(n) << endl;
 
+// total bits need to represents n
+cout << bit_width((unsigned)n) << endl;
 
 // print n in binary
 void print_binary(int n){
