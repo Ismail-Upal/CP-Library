@@ -11,8 +11,9 @@ Inclusion-Exclusion method :inclusion-exclusion principle that says that size of
     count = (n / di) + (n / dj) + (n / dk)
             - (n / di dj) - (n / dj dk) - (n / dk di)
             + (n / di dj dk)
-    add for odd size sets 
-    substract for odd size sets 
+
+(A1 ​∪ A2 ​∪ ... ∪ An) = ∑(Ai​) − ∑(Ai ​∩ Aj​) + ∑(Ai ​∩ Aj ​∩ Ak​) − ...
+Alternate signs.
 ----------------------------------------------------------
 Given n and an array divisors[], count how many numbers between 1 and n are divisible by any of them.
     Count = ∑ (n / di)
