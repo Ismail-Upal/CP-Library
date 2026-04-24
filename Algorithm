@@ -7,3 +7,31 @@ for(int i = 1; i < n; i++) {
 }
 cout << mx_sum;
  # max to min for min sub array 
+-------------------------------------------------------
+Digit DP 
+-------------------------------------------------------
+ll dp[20][STATE][2];
+
+ll solve(int pos, STATE state, int tight) {
+    if (pos == n) {
+        return base_case(state);
+    }
+
+    if (dp[pos][state][tight] != -1)
+        return dp[pos][state][tight];
+
+    int limit = tight ? digit[pos] : 9;
+
+    ll res = 0;
+
+    for (int d = 0; d <= limit; d++) {
+        res += solve(
+            pos + 1,
+            update(state, d),
+            tight && (d == limit)
+        );
+    }
+
+    return dp[pos][state][tight] = res;
+}
+-------------------------------------------------------
