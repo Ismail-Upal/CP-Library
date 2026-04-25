@@ -8,30 +8,35 @@ for(int i = 1; i < n; i++) {
 cout << mx_sum;
  # max to min for min sub array 
 -------------------------------------------------------
-Digit DP 
+Digit DP : count no which adj elm differs
 -------------------------------------------------------
-ll dp[20][STATE][2];
+ll dp[20][2][2][10];
 
-ll solve(int pos, STATE state, int tight) {
-    if (pos == n) {
-        return base_case(state);
+ll rec(int i, bool tight, bool lz, int prev, string &s){
+    if(i == s.size()) return 1;
+
+    if(dp[i][tight][lz][prev] != -1) return dp[i][tight][lz][prev];
+    
+    int up = tight ? (s[i] - '0') : 9;
+    ll ans = 0;
+    for(int d = 0; d <= up; d++){
+        if(d == prev and !lz) continue;
+        ans += rec(i + 1, tight && (d == up), lz && (d == 0), d, s);
     }
+    return dp[i][tight][lz][prev] = ans;
+}
 
-    if (dp[pos][state][tight] != -1)
-        return dp[pos][state][tight];
+void Solve(){
+    ll a, b; cin >> a >> b;
 
-    int limit = tight ? digit[pos] : 9;
+    string s = to_string(a - 1);
+    memset(dp, -1, sizeof dp);
+    ll l = rec(0, 1, 1, 0, s);
 
-    ll res = 0;
-
-    for (int d = 0; d <= limit; d++) {
-        res += solve(
-            pos + 1,
-            update(state, d),
-            tight && (d == limit)
-        );
-    }
-
-    return dp[pos][state][tight] = res;
+    s = to_string(b);
+    memset(dp, -1, sizeof dp);
+    ll r = rec(0, 1, 1, 0, s);
+    
+    cout << r - l << endl;
 }
 -------------------------------------------------------
