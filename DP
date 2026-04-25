@@ -183,10 +183,11 @@ public:
         ll ans = 0;
         for(int d = 0; d <= up; d++){
             if(sum + d <= max_sum){
-                ans = ((ans % mod) + (rec(i + 1, tight && (d == up), sum + d, s, min_sum, max_sum) % mod)) % mod;
+                ans += rec(i + 1, tight && (d == up), sum + d, s, min_sum, max_sum);
+                ans %= mod;
             }
         }
-        return dp[i][tight][sum] = ans % mod;
+        return dp[i][tight][sum] = ans;
     }
 
     int count(string num1, string num2, int min_sum, int max_sum) {
