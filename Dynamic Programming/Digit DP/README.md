@@ -1,9 +1,14 @@
-# Why not DP ?
-This repo consists of codes of all questions covered by **[Why not DP ?]***[Digit DP Playlist](https://youtube.com/playlist?list=PLN2s9sIPkFC9HAF_8Os7pIbE8ZAwlA-uF&si=KDLAce4EVd2JQHOp)***. 
-(Codes are tested on ***LeetCode*** and are in the order of videos)\
+This repository contains solutions to all problems covered in the **"Why Not DP? Digit DP Playlist"**.
+All codes are tested on LeetCode and are organized according to the order of the videos in the playlist.
 
+### State Definitions (Digit DP)
 
-idx -> position of digits of number
-tight -> 1 -> cant fill with any number (0 - s[i]) or will be greater
-        0 -> can fill with any number (0 - 9)
-lz -> leading zeroes are present or not or number started or not
+* **idx** → Current position in the digit string (index of the number)
+* **tight** → Constraint flag:
+
+  * `1` → The current prefix is restricted (you can only use digits from `0` to `s[i]`)
+  * `0` → No restriction (you can use digits from `0` to `9`)
+* **lz (leading zero)** → Indicates whether the number has started:
+
+  * `1` → Still placing leading zeros (number not started yet)
+  * `0` → Number has started (a non-zero digit has been placed)
