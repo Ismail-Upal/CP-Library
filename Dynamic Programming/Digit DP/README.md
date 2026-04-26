@@ -1,4 +1,5 @@
-This repository contains solutions to all problems covered in the ***[Why Not DP? Digit DP Playlist]([https://www.youtube.com/playlist?list=YOUR_PLAYLIST_LINK_HERE](https://youtube.com/playlist?list=PLN2s9sIPkFC9HAF_8Os7pIbE8ZAwlA-uF&si=t2kKb5QUXbg3EeHK))***.
+This repo consists of codes of all questions covered by **[Why Not DP?](https://www.youtube.com/@whynotdp)** in his ***[DIGIT DP Playlist](https://www.youtube.com/watch?v=gIJczEQoSmM&list=PLN2s9sIPkFC9HAF_8Os7pIbE8ZAwlA-uF&index=1&t=5s)***. 
+
 All codes are tested on LeetCode and are organized according to the order of the videos in the playlist.
 
 ### State Definitions (Digit DP)
@@ -12,7 +13,3 @@ All codes are tested on LeetCode and are organized according to the order of the
 
   * `1` → Still placing leading zeros (number not started yet)
   * `0` → Number has started (a non-zero digit has been placed)
-
-
-
-This repo consists of codes of all questions covered by **[Why Not DP?](https://www.youtube.com/@whynotdp)** in his ***[Dynamic Programming Playlist](https://www.youtube.com/watch?v=gIJczEQoSmM&list=PLN2s9sIPkFC9HAF_8Os7pIbE8ZAwlA-uF&index=1&t=5s)***. 
