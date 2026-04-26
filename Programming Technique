@@ -234,3 +234,14 @@ auto stop = high_resolution_clock::now();
 auto duration = duration_cast<milliseconds>(stop - start);
 cerr << "Time: " << duration.count() << "ms" << endl;
 ---------------------------------------------------------------------------
+A string is substr of another string or not:
+---------------------------------------------------------------------------
+    string s = "hello world";
+    string t = "world";
+
+    if (s.find(t) != string::npos) {
+        cout << "t is a substring of s\n";
+    } else {
+        cout << "t is NOT a substring of s\n";
+    }
+--------------------------------------------------------------------------
