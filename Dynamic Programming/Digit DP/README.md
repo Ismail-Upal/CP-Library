@@ -13,4 +13,4 @@ All codes are tested on LeetCode and are organized according to the order of the
   * `1` → Still placing leading zeros (number not started yet)
   * `0` → Number has started (a non-zero digit has been placed)
 
-**[Aditya Verma](https://www.youtube.com/@TheAdityaVerma)** in his ***[Dynamic Programming Playlist](https://www.youtube.com/watch?v=nqowUJzG-iM&list=PL_z_8CaSLPWekqhdCPmFohncHwz8TY2Go&index=1)***.
+**[by Why Not DP [By Piyush Raj]](https://www.youtube.com/@whynotdp)** in his ***[Digit DP Playlist([https://www.youtube.com/watch?v=nqowUJzG-iM&list=PL_z_8CaSLPWekqhdCPmFohncHwz8TY2Go&index=1(https://youtube.com/playlist?list=PLN2s9sIPkFC9HAF_8Os7pIbE8ZAwlA-uF&si=5JUzxeKP6fTLb79U))***.
