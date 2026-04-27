@@ -8,88 +8,52 @@
 // T.C = O(n*sum)
 // S.C = O(n*sum)
 class Solution {
-public:
-    vector<int> isSubsetPoss(int arr[], int n, int sum) {
-    	bool t[n + 1][sum + 1];
-    	// initialization
-    	for (int i = 0; i <= n; i++) {
-    		for (int j = 0; j <= sum; j++) {
-    			if (i == 0) {
-    				t[i][j] = false;
-    			}
-    			if (j == 0) {
-    				t[i][j] = true;
-    			}
-    		}
-    	}
-    	for (int i = 1; i <= n; i++) {
-    		for (int j = 1; j <= sum; j++) {
-    			if (arr[i - 1] <= j) {
-    				t[i][j] = t[i - 1][j - arr[i - 1]] || t[i - 1][j]; // include or exclude
-    			} else {
-    				t[i][j] = t[i - 1][j];  // exclude
-    			}
-    		}
-    	}
-    	vector<int> v;   // contains all subset sums possible with n elements 
-    	for (int j = 0; j <= sum; j++) {
-    		if (t[n][j] == true) {
-    			v.push_back(j); {
-    			}
-    		}
-    	}
-    	return v;
+  public:
+    int minDifference(vector<int>& arr) {
+        int n = arr.size();
+        int sum = accumulate(arr.begin(), arr.end(), 0);
+        int dp[n + 5][sum + 5];
+        memset(dp, -1, sizeof dp);
+        
+        for(int l = 0; l <= sum; l++){
+            int r = sum - l;
+            dp[n][l] = abs(l - r); 
+        }
+        
+        for(int i = n - 1; i >=0; i--){
+            for(int left = sum; left >= 0; left--){
+                dp[i][left] = min(dp[i + 1][left], dp[i + 1][left + arr[i]]);
+            }
+        }
+        return dp[0][0];
     }
-    
-	int minDifference(int arr[], int n)  { 
-	    int range = 0;
-        for(int i=0; i<n; i++) {
-            range += arr[i];
-        }
-        vector<int> v = isSubsetPoss(arr, n, range);
-        int mn = INT_MAX;
-        for(int i=0; i< v.size(); i++) {
-            mn = min(mn, abs(range - 2*v[i]));
-        }
-        return mn;
-	} 
 };
+
 
 
 
 // Memoization
 // T.C = O(n*sum)
 // S.C = O(n*sum)
+const int N = 1e5 + 5;
 class Solution {
   public:
-    int solve(vector<int>& arr, int n, int sum, int currSum, vector<vector<int>>& dp) {
-        int ans=INT_MAX;
-        if(n == 0) {
-            ans = min(ans, abs(sum - 2*currSum));
-            return ans;
-        }
-        if(n < 0) {
-            return 0;
-        }
+    vector<vector<int>> dp;
+    int rec(int i, int left, int sum, vector<int> &arr){
+        if(i == arr.size()){
+            int right = sum - left;
+            return abs(left - right);
+        }  
+        if(dp[i][left] != -1) return dp[i][left];
         
-        if(dp[n][currSum] != -1) {
-            return dp[n][currSum];
-        }
-        
-        int take = 0, skip = 0;
-        take = solve(arr, n-1, sum, currSum + arr[n-1], dp);
-        skip = solve(arr, n-1, sum, currSum, dp);
-        
-        return dp[n][currSum] = min(take, skip);
+        int ans = min(rec(i + 1, left, sum, arr), rec(i + 1, left + arr[i], sum, arr));
+        return dp[i][left] = ans;
     }
-
+    
     int minDifference(vector<int>& arr) {
         int n = arr.size();
-        int sum = 0;
-	    for(int i=0; i<n; i++){
-	        sum += arr[i];
-	    }
-	    vector<vector<int>>dp(n+1, vector<int>(sum+1, -1));
-	    return solve(arr, n, sum, 0, dp);
+        int sum = accumulate(arr.begin(), arr.end(), 0);
+        dp.assign(n, vector<int>(sum + 1, -1));
+        return rec(0, 0, sum, arr);
     }
 };

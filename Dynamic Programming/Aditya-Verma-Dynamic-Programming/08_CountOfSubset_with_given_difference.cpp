@@ -6,44 +6,23 @@
 // T.C = O(n*sum(arr))
 // S.C = O(sum(arr))
 class Solution {
-public:
-    int mod = 1e9+7;
-    int CountSubsetsWithSum(vector<int>& arr, int n, int sum) {
-    // 	int t[n + 1][sum + 1];
-    vector<vector<int>> t(n + 1, vector<int>(sum + 1, 0));
-    	// initialization 
-    	for (int i = 0; i <= n; i++) {     // i -> size of the array
-    		for (int j = 0; j <= sum; j++) {     // j -> target sum (subset sum)
-    			if (i == 0) {
-    				t[i][j] = 0;
-    			}
-    			if (j == 0) {
-    				t[i][j] = 1;
-    			}
-    		}
-    	}
-    
-    	for (int i = 1; i <= n; i++) {
-    		for (int j = 0; j <= sum; j++) {
-    			if (arr[i - 1] <= j) {   // when element in the list is less then target sum 
-    				t[i][j] = (t[i - 1][j - arr[i - 1]] + t[i - 1][j]) % mod; // either exclude or inxlude and add both of them to get final count 
-    			} else {
-    				t[i][j] = (t[i - 1][j]); // exclude when element in the list is greater then the sum 
-    			}
-    		}
-    	}
-    	return t[n][sum]; // finally return the last row and last column element 
-    }
-
-    int countPartitions(int n, int diff, vector<int>& arr) {
-        int sumOfArray = 0;
-    	for (int i = 0; i < n; i++) {
-    		sumOfArray += arr[i]; 
-    	}
-    	if ((sumOfArray + diff) % 2 != 0) {
-    		return 0;
-    	}
-    	return CountSubsetsWithSum(arr, n, (sumOfArray + diff) / 2);
+  public:
+    int countPartitions(vector<int>& arr, int diff) {
+        int n = arr.size();
+        int sum = accumulate(arr.begin(), arr.end(), 0);
+        
+        int dp[n + 1][sum + 1];
+        memset(dp, 0, sizeof dp);
+        for(int s = 0; s <= sum; s++){
+            if(2 * s == sum + diff) dp[n][s] = 1;
+        }
+        
+        for(int i = n - 1; i >= 0; i--){
+            for(int left = sum - 1; left >= 0; left--){
+                dp[i][left] = dp[i + 1][left] + dp[i + 1][left + arr[i]];
+            }
+        }
+        return dp[0][0];
     }
 };
 
@@ -55,40 +34,27 @@ public:
 // S.C = O(n*sum(arr))
 class Solution {
   public:
-    int mod = 1e9 + 7;
-    
-    int solve(vector<int>& arr, int target, int n, vector<vector<int>>& dp) {
-        if(n == 0) {
-            if(target == 0) {
-                return 1;
-            }
-            return 0;
+    vector<vector<int>> dp;
+    int rec(int i, int left, int sum, vector<int> &arr, int diff){
+        if(i == arr.size()){
+            if(2 * (left) == sum + diff) return 1;
+            else return 0;
         }
-
-        if(dp[n][target] != -1) {
-            return dp[n][target];
-        }
-        if(arr[n-1] <= target) {
-            dp[n][target] = (solve(arr, target-arr[n-1], n-1, dp) + solve(arr, target, n-1, dp))%mod;
-        } else {
-            dp[n][target] = (solve(arr, target, n-1, dp))%mod;
-        }
-        return dp[n][target];
+        if(dp[i][left] != -1) return dp[i][left];
+        
+        int ans = 0;
+        ans += rec(i + 1, left + arr[i], sum, arr, diff);
+        ans += rec(i + 1, left, sum, arr, diff);
+        
+        return dp[i][left] = ans;
     }
-
+    
     int countPartitions(vector<int>& arr, int diff) {
         int n = arr.size();
-        int sumOfArray = 0;
-    	for (int i = 0; i < n; i++) {
-    		sumOfArray += arr[i]; 
-    	}
-    	if ((sumOfArray + diff) % 2 != 0) {
-    		return 0;
-    	}
-    	
-    	int target = (sumOfArray + diff) / 2;
-    	vector<vector<int>>dp (n+1, vector<int>(target+1, -1));
-    	
-    	return solve(arr, target, n, dp);
+        int sum = accumulate(arr.begin(), arr.end(), 0);
+        if((sum + diff) % 2) return 0;
+        
+        dp.assign(n + 1, vector<int>(sum + 1, -1));
+        return rec(0, 0, sum, arr, diff);
     }
 };

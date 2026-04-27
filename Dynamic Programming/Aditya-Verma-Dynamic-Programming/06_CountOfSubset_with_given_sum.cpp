@@ -10,34 +10,27 @@
 // T.C = O(sum*n)
 // S.C = O(sum*n)
 class Solution {
-public:
-    int mod = 1e9 + 7;
-	int perfectSum(int arr[], int n, int sum) {
-        // vector<vector<int>> t(n + 1, vector<int>(sum + 1, 0));
-        int t[n + 1][sum + 1];
-    	for (int i = 0; i<n+1; i++) {   // i -> size of array
-    		for (int j = 0; j<sum+1; j++) {  // j -> target sum (subset sum)
-    			if (i == 0) {
-    				t[i][j] = 0;
-    			}
-    			if (j == 0) { 
-    				t[i][j] = 1;
-    			}
-    		}
-    	}
-
-		for (int i = 1; i <n+1; i++) {
-			for (int j = 0; j < sum+1; j++) {   // NOTE :- here j started from 0
-				if (arr[i - 1] <= j) {   // when element in the list is less then target sum 
-					t[i][j] = (t[i - 1][j - arr[i - 1]] + t[i - 1][j]) % mod;  // either exclude or inxlude and add both of them to get final count 
-				} 
-				else {
-					t[i][j] = (t[i - 1][j]) % mod;  // exclude when element in the list is greater then the sum 
-				}
-			}
-		}
-		return t[n][sum];
-	}
+  public:
+    int perfectSum(vector<int>& arr, int target) {
+        int n = arr.size();
+        int dp[n + 5][1005];
+        memset(dp, 0, sizeof dp);
+        
+        for(int i = 0; i <= n; i++) dp[i][target] = 1;
+        
+        for(int i = n - 1; i >= 0; i--){
+            for(int s = target; s >= 0; s--){
+                int ans = 0;
+                if(s + arr[i] <= target){
+                    ans = dp[i + 1][s + arr[i]];
+                }
+                ans += dp[i + 1][s];
+                dp[i][s] = ans;
+            }
+        }
+        
+        return dp[0][0];
+    }
 };
 
 
@@ -46,32 +39,26 @@ public:
 // Memoization
 // T.C = O(sum*n)
 // S.C = O(sum*n)
+const int N = 1e3 + 4;
 class Solution {
   public:
-    int mod = 1e9 + 7;
-    
-    int solve(vector<int>& arr, int target, int n, vector<vector<int>>& dp) {
-        if(n == 0) {
-            if(target == 0) {
-                return 1;
-            }
-            return 0;
+  
+    int dp[N][N];
+    int rec(int i, int sum, vector<int> &arr, int target){
+        if(i == arr.size()) return sum == target;
+        if(dp[i][sum] != -1) return dp[i][sum];
+        
+        int ans = 0;
+        if(sum + arr[i] <= target){
+            ans = rec(i + 1, sum + arr[i], arr, target);
         }
-
-        if(dp[n][target] != -1) {
-            return dp[n][target];
-        }
-        if(arr[n-1] <= target) {
-            dp[n][target] = (solve(arr, target-arr[n-1], n-1, dp) + solve(arr, target, n-1, dp))%mod;
-        } else {
-            dp[n][target] = (solve(arr, target, n-1, dp))%mod;
-        }
-        return dp[n][target];
+        ans += rec(i + 1, sum, arr, target);
+        
+        return dp[i][sum] = ans;
     }
-
+    
     int perfectSum(vector<int>& arr, int target) {
-        int n = arr.size();
-        vector<vector<int>> dp(n + 1, vector<int>(target + 1, -1));
-        return solve(arr, target, n, dp);
+        memset(dp, -1, sizeof dp);
+        return rec(0, 0, arr, target);
     }
 };

@@ -1,32 +1,23 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-const int N = 1000; 
-int dp[N][N]; 
-
-int Knapsack(int wt[], int val[], int W, int n) {
-	if(n == 0 || W == 0) return 0;
-	
-	if(dp[n][W] != -1) return dp[n][W];
-	
-	if(wt[n - 1] <= W){
-		dp[n][W] = max(val[n - 1] + Knapsack(wt, val, W - wt[n - 1], n - 1),Knapsack(wt, val, W, n - 1));
-	} 
-	else if (wt[n - 1] > W){
-		dp[n][W] = Knapsack(wt, val, W, n - 1);
-	}
-	return dp[n][W];
-}
-
-int main() {
-	int n; cin >> n;   
-	int val[n], wt[n]; 
-	for(int i = 0; i < n; i++) cin >> wt[i];
-	for(int i = 0; i < n; i++) cin >> val[i];
-	int W; cin >> W; 
-
-	memset(dp, -1, sizeof dp);
-	cout << Knapsack(wt, val, W, n) << endl;
-	
-	return 0;
-}
+const int N = 1005;
+class Solution {
+  public:
+    int dp[N][N];
+    int rec(int i, int w, int n, int W, vector<int> &val, vector<int> &wt){
+        if(i == n) return 0;
+        if(dp[i][w] != -1) return dp[i][w];
+        
+        int ans = 0;
+        if(w + wt[i] <= W){
+            ans = rec(i + 1, w + wt[i], n, W, val, wt) + val[i];
+        }
+        ans = max(ans, rec(i + 1, w, n, W, val, wt));
+        
+        return dp[i][w] = ans;
+    }
+    
+    int knapsack(int W, vector<int> &val, vector<int> &wt) {
+        int n = val.size();
+        memset(dp, -1, sizeof dp);
+        return rec(0, 0, n, W, val, wt);
+    }
+};

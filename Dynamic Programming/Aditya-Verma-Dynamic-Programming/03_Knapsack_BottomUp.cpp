@@ -9,21 +9,24 @@
 
 
 class Solution {
-    public:
-    int knapSack(int W, int wt[], int val[], int n) {
+  public:
+    
+    int knapsack(int W, vector<int> &val, vector<int> &wt) {
+        int n = val.size();
         int dp[n + 1][W + 1];
         memset(dp, 0, sizeof dp);
-
-    	for(int i = 1; i<n+1; i++) {
-    		for(int j = 1; j<W+1; j++) {
-    			if(wt[i - 1] <= j){ 
-    				dp[i][j] = max(val[i - 1] + t[i - 1][j - wt[i - 1]], t[i - 1][j]);
-    			}
-    			else if (wt[i - 1] > j) {  
-    				t[i][j] = t[i - 1][j]; // move to next
-    			}
-		}
-    	}
-    	return t[n][W];
+        
+        for(int i = n - 1; i >= 0; i--){
+            for(int w = W; w >= 0; w--){
+                
+                int ans = 0;
+                if(w + wt[i] <= W){
+                    ans = dp[i + 1][w + wt[i]] + val[i];
+                }
+                ans = max(ans, dp[i + 1][w]);
+                dp[i][w] = ans;
+            }
+        }
+        return dp[0][0];
     }
 };
