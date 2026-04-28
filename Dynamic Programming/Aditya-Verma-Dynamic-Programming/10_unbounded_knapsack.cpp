@@ -4,22 +4,21 @@
 // T.C = O(n*W)
 // S.C = O(W)
 class Solution {
-public:
-    int knapSack(int n, int W, int val[], int wt[]) {
-        int t[n + 1][W + 1];
-    	for (int i = 0; i <= n; i++) {
-    		for (int j = 0; j <= W; j++) {
-    			if (i == 0 || j == 0) { // base case
-    				t[i][j] = 0;
-				}
-    			else if (wt[i - 1] <= j) { // current wt can fit in bag
-    				t[i][j] = max(val[i - 1] + t[i][j - wt[i - 1]], t[i - 1][j]);
-    			}
-    			else if (wt[i - 1] > j) { // current wt doesn't fit in bag
-    				t[i][j] = t[i - 1][j];
-				}
-    		}
-    	}
-    	return t[n][W];
+  public:
+    vector<vector<int>> dp;
+    int rec(int i, int w, vector<int>& val, vector<int>& wt, int capacity){
+        if(i == val.size()) return 0;
+        if(dp[i][w] != -1) return dp[i][w];
+        
+        int ans = 0;
+        if(w + wt[i] <= capacity) ans = rec(i, w + wt[i], val, wt, capacity) + val[i];
+        ans = max(ans, rec(i + 1, w, val, wt, capacity));
+        
+        return dp[i][w] = ans;
+    }
+    
+    int knapSack(vector<int>& val, vector<int>& wt, int capacity) {
+        dp.assign(val.size() + 1, vector<int>(capacity + 1, -1));
+        return rec(0, 0, val, wt, capacity);
     }
 };

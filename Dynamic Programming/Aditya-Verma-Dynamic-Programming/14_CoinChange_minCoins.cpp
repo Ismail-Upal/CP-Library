@@ -18,90 +18,28 @@ recursion and select the combination which gives us the minimum number of coins.
 
 */
 
-
-
-// Approach - 1(Recursion) [Giving TLE]
-// T.C = O(n^amount) where n = length of coins array
-// S.C = O(n)
-
-
-
-
-// Approach - 3(Memoization - Top Down)
-// T.C = O(n*amount)
-// S.C = O(n*amount)
 class Solution {
 public:
-    int solve(vector<int>& coins, int amount, int n, vector<vector<int>>& dp) {
-        if (amount == 0) {
-            return 0;
+    int dp[13][10005];
+    int rec(int i, long long sum, vector<int>& coins, int amount){
+        if(i == coins.size()){
+            if(sum == amount) return 0;
+            else return 1e9;
         }
-        if (n <= 0) {
-            return 1e9;
-        }
-        if(dp[n][amount] != -1){
-            return dp[n][amount];
-        }
-        // take the current coin
-        int take = 1e9, skip = 0;
-        if (coins[n-1] <= amount) {
-           take = 1 + solve(coins, amount - coins[n-1], n, dp);
-        }
-        // skip the current coin
-       skip= solve(coins, amount, n-1, dp);
+        if(dp[i][sum] != -1) return dp[i][sum];
 
-       return dp[n][amount] = min(take, skip);
+        int ans = 1e9;
+        if(sum + coins[i] <= amount){
+            ans = rec(i, sum + coins[i], coins, amount) + 1;
+        }
+        ans = min(ans, rec(i + 1, sum, coins, amount));
+
+        return dp[i][sum] =  ans;
     }
-
     int coinChange(vector<int>& coins, int amount) {
-        int n = coins.size();
-        vector<vector<int>>dp (n+1, vector<int>(amount+1, -1));
-        int ans = solve(coins, amount, n, dp);
-        if(ans == 1e9) {
-            return -1;
-        } else {
-            return ans;
-        }
-    }
-};
-
-
-
-
-
-// Approach - 3(Tabulation - Bottom Up)
-// T.C = O(n*amount)
-// S.C = O(n*amount)
-class Solution {
-public:
-    int coinChange(vector<int>& coins, int amount) {
-        int n = coins.size();
-        int t[n+1][amount+1];
-        for(int i=0; i<=n; i++) {
-            for(int j=0; j<=amount; j++) {
-                if(j==0) {
-                    t[i][j] = 0;
-                }
-                if(i==0) {
-                    t[i][j] = INT_MAX-1;
-                }
-            }
-        }
-        for(int i=1; i<=n; i++) {
-            for(int j=1; j<=amount; j++) {
-                if(coins[i-1] <= j) {
-                    t[i][j] = min(1 + t[i][j-coins[i-1]], t[i-1][j]);
-                }
-                else {
-                    t[i][j] = t[i-1][j];
-                }
-            }
-        }
-        if(t[n][amount] == INT_MAX-1) {
-            return -1;
-        }
-        else {
-            return t[n][amount];
-        }
+        memset(dp, -1, sizeof dp);
+        int ans = rec(0, 0, coins, amount);
+        if(ans == 1e9) ans = -1;
+        return ans;
     }
 };

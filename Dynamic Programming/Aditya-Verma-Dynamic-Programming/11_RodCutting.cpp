@@ -7,46 +7,26 @@
 // As the greedy approach doesn’t work, we will try to generate all possible combinations using 
 // recursion and select the combination which gives us the maximum value in the given constraints.
 
-#include <bits/stdc++.h>
-using namespace std;
 
-int getMaxProfit(int length[], int price[], int n, int L) {
-	int t[n + 1][L + 1];
-	for (int i = 0; i <= n; i++) {
-		for (int j = 0; j <= L; j++) {
-			if (i == 0) {
-				t[i][j] = 0;
-			}
-			if (j == 0) {
-				t[i][j] = 1;
-			}
-		}
-	}
-	for (int i = 1; i <= n; i++) {
-		for (int j = 1; j <= L; j++) {
-			if (length[i - 1] <= j) {
-				t[i][j] = max(price[i - 1] + t[i][j - length[i - 1]], t[i - 1][j]);
-			}
-			else {
-				t[i][j] = t[i - 1][j];
-			}
-		}
-	}
-	return t[n][L];
-}
-
-signed main() {
-	int n; cin >> n;
-	int length[n], price[n];
-	for (int i = 0; i < n; i++) {
-		cin >> length[i];
-	}
-	for (int i = 0; i < n; i++) {
-		cin >> price[i];
-	}
-	int L;
-	cin >> L;
-
-	cout << getMaxProfit(length, price, n, L) << endl;
-	return 0;
-}
+class Solution {
+  public:
+    int dp[1004][1004];
+    int rec(int i, int len, vector<int> &price){
+        if(i == price.size() or len == price.size()) return 0;
+        if(dp[i][len] != -1) return dp[i][len];
+        
+        int ans = 0;
+        if(len + i + 1 <= price.size()){
+            ans = rec(i, len + i + 1, price) + price[i];
+        }
+        ans = max(ans, rec(i + 1, len, price));
+        
+        return dp[i][len] = ans;
+    }
+    
+    int cutRod(vector<int> &price) {
+        int n = price.size();
+        memset(dp, -1, sizeof dp);
+        return rec(0, 0, price);
+    }
+};

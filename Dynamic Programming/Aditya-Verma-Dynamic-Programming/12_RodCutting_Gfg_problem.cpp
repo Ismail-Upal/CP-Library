@@ -5,48 +5,26 @@
 // S.C = O(N)
 
 // Approach - 1
-class Solution{
+
+class Solution {
   public:
-    int cutRod(vector<int> &price) {
-        int n = price.size();
-        int len[n];
-        for(int i=0;i<n;i++) {
-            len[i] = i + 1;
-        }
-        // int t[n+1][n+1];
-        vector<vector<int>> t(n + 1, vector<int>(n + 1, 0));
-        for(int i=0; i<n+1; i++){
-            t[i][0] = 0;
-            t[0][i] = 1;
-        }
+    int dp[1004][1004];
+    int rec(int i, int len, vector<int> &price){
+        if(i == price.size() or len == price.size()) return 0;
+        if(dp[i][len] != -1) return dp[i][len];
         
-        for(int i=1; i<n+1; i++) {
-            for(int j=1; j<n+1; j++) {
-                if(len[i-1] <= j) {
-                    t[i][j] = max(price[i-1] + t[i][j-len[i-1]], t[i-1][j]);
-                } else {
-                    t[i][j] = t[i-1][j];
-                }
-            }
+        int ans = 0;
+        if(len + i + 1 <= price.size()){
+            ans = rec(i, len + i + 1, price) + price[i];
         }
-        return t[n][n];
+        ans = max(ans, rec(i + 1, len, price));
+        
+        return dp[i][len] = ans;
     }
-};
-
-
-
-
-// Approach - 2
-class Solution{
-  public:
+    
     int cutRod(vector<int> &price) {
         int n = price.size();
-        vector<int> dp(n+1, 0);
-        for(int i=1; i<=n; i++) {
-            for(int j=i; j<=n; j++) {
-                dp[j] = max(dp[j], dp[j-i] + price[i-1]);
-            }
-        }
-        return dp[n];
+        memset(dp, -1, sizeof dp);
+        return rec(0, 0, price);
     }
 };
