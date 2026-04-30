@@ -150,7 +150,7 @@ A Common way to track MEX :
 ------------------------------------------------------------------
 # here we compute number of segment or non-overlapping subarray thats mex is MEX
             int seg = 0, mex = 0;
-            unordered_map<int, int, custom_hash> mp;
+            map<int, int, custom_hash> mp;
             for(int i = 0; i < n; i++){
                 if(v[i] < MEX) mp[v[i]]++;
                 if(mp[v[i]] == 1) mex++;
@@ -163,7 +163,7 @@ A Common way to track MEX :
             }
 -----------------------------------------------------------------
 struct MEXTracker {
-    unordered_map<int, int> mp;
+    map<int, int> mp;
     int current_mex = 0;
 
     void add(int x) {
