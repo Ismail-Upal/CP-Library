@@ -11,30 +11,28 @@
 // S.C = O(n^2)
 class Solution {
 public:
-    int LCS(string X, string Y, int n, int m) {
-        int dp[n + 1][m + 1];
-        for (int i = 0; i <= n; i++) {
-            for (int j = 0; j <= m; j++) {
-                if (i == 0 || j == 0) {
-                    dp[i][j] = 0;
-                }
-            }
+    int dp[1000][1000];
+    int rec(int i, int j, string &s){
+        if(i > j) return 0;
+        if(i == j) return 1;
+
+        if(dp[i][j] != -1) return dp[i][j];
+
+        int ans = 0;
+        if(s[i] == s[j]){
+            ans = rec(i + 1, j - 1, s) + 2;
         }
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= m; j++) {
-                if (X[i - 1] == Y[j - 1]) {    // when last character is same
-                    dp[i][j] = 1 + dp[i - 1][j - 1];
-                } else {    // when last character is not same -> pick max
-                    dp[i][j] = max(dp[i][j - 1], dp[i - 1][j]);
-                }
-            }
+        else{
+            ans = max(rec(i + 1, j, s), rec(i, j - 1, s));
         }
-        return dp[n][m];
+
+        return dp[i][j] = ans;
     }
+
     int longestPalindromeSubseq(string s) {
-        int n = s.length();
-        string rev_s = s;
-        reverse(rev_s.begin(), rev_s.end()); // take reversed string as another string of lcs and apply lcs 
-        return LCS(s, rev_s, n, n);
+        memset(dp, -1, sizeof(dp));
+        int ans = rec(0, s.size() - 1, s);
+
+        return ans;
     }
 };

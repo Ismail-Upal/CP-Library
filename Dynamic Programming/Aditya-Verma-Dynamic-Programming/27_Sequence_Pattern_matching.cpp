@@ -6,10 +6,8 @@ class Solution {
 public:
     bool isSubsequence(string s, string t) {
         int i = 0, j = 0;
-        while (i < s.size() && j < t.size()) {
-            if (s[i] == t[j]) {
-                i++;
-            }
+        while(j < t.size()){
+            if(i < s.size() and s[i] == t[j]) i++;
             j++;
         }
         return i == s.size();
@@ -21,31 +19,26 @@ public:
 // Approach - 2 (Aditya Verma) [not necessary]
 class Solution {
 public:
-    int LCS(string X, string Y, int n, int m) {
-        int dp[n + 1][m + 1];
+    int dp[1001][10001];
+    int rec(int i, int j, string& s, string& t) {
+        if (i == s.size() or j == t.size())
+            return 0;
+        if (dp[i][j] != -1)
+            return dp[i][j];
 
-        for (int i = 0; i <= n; i++) {
-            for (int j = 0; j <= m; j++) {
-                if (i == 0 || j == 0) {
-                    dp[i][j] = 0;
-                }
-            }
+        int ans = 0;
+        if (s[i] == t[j]) {
+            ans = 1 + rec(i + 1, j + 1, s, t);
+        } else {
+            ans = max({ans, rec(i + 1, j, s, t), rec(i, j + 1, s, t)});
         }
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= m; j++) {
-                if (X[i - 1] == Y[j - 1]) {
-                    dp[i][j] = 1 + dp[i - 1][j - 1];
-                } else {
-                    dp[i][j] = max(dp[i][j - 1], dp[i - 1][j]);
-                }
-            }
-        }
-        return dp[n][m];
+
+        return dp[i][j] = ans;
     }
-
     bool isSubsequence(string s, string t) {
-        int n = s.length(), m = t.length();
-        return LCS(s, t, n, m) == min(n, m);
+        memset(dp, -1, sizeof dp);
+        int len = rec(0, 0, s, t);
+        return len >= s.size();
     }
 };
 

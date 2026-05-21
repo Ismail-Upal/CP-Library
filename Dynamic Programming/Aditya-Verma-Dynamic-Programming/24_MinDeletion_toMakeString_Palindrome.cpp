@@ -13,30 +13,23 @@
 // Better Solution (Tabulation)
 // T.C = O(n^2)
 // S.C = O(n^2)
-int LCS(string X, string Y, int n, int m) {
-    int dp[n + 1][m + 1];
-    for (int i = 0; i <= n; i++) {
-        for (int j = 0; j <= m; j++) {
-            if (i == 0 || j == 0) {
-                dp[i][j] = 0;
-            }
-        }
+class Solution {
+  public:
+    int dp[1003][1003];
+    int rec(int i, int j, string &s){
+        if(i >= j) return 0;
+        if(dp[i][j] != -1) return dp[i][j];
+        
+        int ans = 0;
+        if(s[i] == s[j]) ans = rec(i + 1, j - 1, s);
+        else ans = min(rec(i + 1, j, s), rec(i, j - 1, s)) + 1;
+        
+        return dp[i][j] = ans;
     }
-    for (int i = 1; i <= n; i++) {
-        for (int j = 1; j <= m; j++) {
-            if (X[i - 1] == Y[j - 1]) {    // when last character is same
-                dp[i][j] = 1 + dp[i - 1][j - 1];
-            } else {    // when last character is not same -> pick max
-                dp[i][j] = max(dp[i][j - 1], dp[i - 1][j]);
-            }
-        }
+    
+    int minDeletions(string &s) {
+        memset(dp, -1, sizeof dp);
+        int ans = rec(0, s.size() - 1, s);
+        return ans;
     }
-    return dp[n][m];
-}
-
-int minDeletions(string str, int n) { 
-    string rev_str = str;
-	reverse(rev_str.begin(), rev_str.end());
-	
-	return n - LCS(str, rev_str, n, n);   // n - Longest palindromic subsequence length
-}
+};

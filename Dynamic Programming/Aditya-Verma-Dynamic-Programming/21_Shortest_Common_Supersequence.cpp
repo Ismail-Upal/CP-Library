@@ -6,29 +6,28 @@
 
 // Approach - 1 (Memoization)
 class Solution {
-    public:
-    int t[101][101];
-    int LCS(string X, string Y, int m, int n) {
-    	// base case
-    	if (m == 0 || n == 0) {
-    		return 0;
+  public:
+  
+    int dp[505][505];
+    int rec(int i, int j, string &s1, string &s2){
+        if(i == s1.size()) return s2.size() - j;
+        if(j == s2.size()) return s1.size() - i;
+        
+        if(dp[i][j] != -1) return dp[i][j];
+        
+        int ans = 0;
+        if(s1[i] != s2[j]){
+            ans = min(rec(i + 1, j, s1, s2), rec(i, j + 1, s1, s2)) + 1;
         }
-    	if (t[m][n] != -1) {
-    		return t[m][n];
-        }
-        // choice diagram
-    	if (X[m - 1] == Y[n - 1]) {    // when last character is same
-    		t[m][n] = 1 + LCS(X, Y, m - 1, n - 1);    // count the number and decreament the both's string length // store the value in particular block 
-        } 
-        else {   // when last character is not same -> pick max
-    		t[m][n] = max(LCS(X, Y, m - 1, n), LCS(X, Y, m, n - 1)); // one take full and another by leaving last char and vice versa // store the value in particular block 
-        }
-    	return t[m][n];
+        else ans = rec(i + 1, j + 1, s1, s2) + 1;
+        
+        return dp[i][j] = ans;
     }
-    
-    int shortestCommonSupersequence(string X, string Y, int m, int n) {
-        memset(t, -1, sizeof(t));
-        return m + n - LCS(X, Y, m, n);
+  
+    int minSuperSeq(string &s1, string &s2) {
+        memset(dp, -1, sizeof dp);
+        int len = rec(0, 0, s1, s2);
+        return len;
     }
 };
 
@@ -36,22 +35,26 @@ class Solution {
 
 // Approach - 2 (Tabulation)
 class Solution {
-    public:
-    int LCS(string X, string Y, int m, int n) {
-        vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
-        for (int i = 1; i <= n; ++i) {
-            for (int j = 1; j <= m; ++j) {
-                if (Y[i - 1] == X[j - 1]) { 
-                    dp[i][j] = 1 + dp[i - 1][j - 1];
-                } else {
-                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+  public:
+  
+    int minSuperSeq(string &s1, string &s2) {
+        int n = s1.size(), m = s2.size();
+        int dp[n + 1][m + 1];
+        for(int j = 0; j <= m; j++) dp[n][j] = m - j;
+        for(int i = 0; i <= n; i++) dp[i][m] = n - i;
+        
+        for(int i = n - 1; i >= 0; i--){
+            for(int j = m - 1; j >= 0; j--){
+                int ans;
+                if(s1[i] != s2[j]){
+                    ans = min(dp[i + 1][j], dp[i][j + 1]) + 1;
                 }
+                else ans = dp[i + 1][j + 1] + 1;
+                
+                dp[i][j] = ans;
             }
         }
-        return dp[n][m];
-    }
-    
-    int shortestCommonSupersequence(string X, string Y, int m, int n) {
-        return m + n - LCS(X, Y, m, n);
+        
+        return dp[0][0];
     }
 };

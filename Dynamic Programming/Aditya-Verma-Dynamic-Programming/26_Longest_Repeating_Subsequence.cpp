@@ -8,58 +8,23 @@
 
 // Approach - 1 (LCS Memoization)
 class Solution {
-public:
-    int LCS(string& X, string& Y, int n, int m, vector<vector<int>>&t) {
-    	// base case
-    	if (n == 0 || m == 0) {
-    		return 0;
+  public:
+    int dp[1003][1003];
+    int rec(int i, int j, string &s1, string &s2){
+        if(i == s1.size() or j == s2.size()) return 0;
+        if(dp[i][j] != -1) return dp[i][j];
+        
+        int ans = 0;
+        if(s1[i] == s2[j] and i != j){
+            ans = rec(i + 1, j + 1, s1, s2) + 1;
         }
-    	if (t[n][m] != -1) {
-    		return t[n][m];
-        }
-        // choice diagram
-    	if (X[n - 1] == Y[m - 1] && n-1 != m-1) {    // when last character is same
-    		t[n][m] = 1 + LCS(X, Y, n - 1, m - 1, t);    // count the number and decreament the both's string length // store the value in particular block 
-        } 
-        else {   // when last character is not same -> pick max
-    		t[n][m] = max(LCS(X, Y, n - 1, m, t), LCS(X, Y, n, m - 1, t)); // one take full and another by leaving last char and vice versa // store the value in particular block 
-        }
-    	return t[n][m];
+        else ans = max(rec(i + 1, j, s1, s2), rec(i, j + 1, s1, s2));
+        
+        return dp[i][j] = ans;
     }
     
-	int LongestRepeatingSubsequence(string str) {
-	    int n = str.size();
-	    string str2(str.begin(), str.end());
-		vector<vector<int>> t(n+1, vector<int>(n+1, -1));
-		
-		return LCS(str, str2, n, n, t);
-	}
-};
-
-
-
-
-
-// Approach - 2 (Tabulation)
-class Solution {
-public:
-    int LCS(string X, string Y, int n, int m, vector<vector<int>> dp) {
-    for (int i = 1; i <= n; i++) {
-        for (int j = 1; j <= m; j++) {
-            if (X[i - 1] == Y[j - 1] && i != j) {    // when last character is same
-                dp[i][j] = 1 + dp[i - 1][j - 1];
-            } else {      // when last character is not same -> pick max
-                dp[i][j] = max(dp[i][j - 1], dp[i - 1][j]);
-            }
-        }
+    int LongestRepeatingSubsequence(string &s) {
+        memset(dp, -1, sizeof dp);
+        return rec(0, 0, s, s);
     }
-    return dp[n][m];
-}
-	int LongestRepeatingSubsequence(string &str){
-	    int n = str.size();
-	    string str2(str.begin(), str.end());
-	    vector<vector<int>> dp(n+1, vector<int>(n+1, 0));
-	    
-	    return LCS(str, str2, n, n, dp);
-	}
 };
