@@ -69,6 +69,14 @@ bool check_power_of_2(int x) {
     return __builtin_popcountll(x) == 1;
 }
 
+int right_most_set_bits(int x){
+    return (x & -x);
+    // x = 1010
+    //-x = 0110
+    ------------
+  x & -x = 0010
+}
+
 
 int main() {
   // Bitwise AND (&)
