@@ -398,3 +398,10 @@ Modular Arithmetic Properties :
 13. Equality Check : If a % m == b % m, then (a - b) % m == 0
 
 ---------------------------------------------------------------
+Euler Totient Function / Phi function:
+----------------------------------------------------------------
+phi(N) = number of integers less than N that are Co-Prime to N.
+       = N - 1 : [ if N is prime ]
+       = (p - 1) (q - 1) : [ if n = p * q and p != q and p, q are prime ]
+       = N (1 - 1 / p1) (1 - 1 / p2) .. : [ p1, p2 are distinct prime factor ]
+
