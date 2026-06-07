@@ -404,4 +404,21 @@ phi(N) = number of integers less than N that are Co-Prime to N.
        = N - 1 : [ if N is prime ]
        = (p - 1) (q - 1) : [ if n = p * q and p != q and p, q are prime ]
        = N (1 - 1 / p1) (1 - 1 / p2) .. : [ p1, p2 are distinct prime factor ]
+------------------------------------------------------------------
+Mobius Function:
+------------------------------------------------------------------------
+μ(N) = 1 : [ if N is 1]
+     = 0 : [ if N % (p * p) == 0, p > 1, or N has a squared prime factor]
+     = (- 1)^k : [ if N = p1*p2*p3*pk , or N is product of k distinct primes]
 
+vector<int> mobius(N, 0);
+mobius[1] = -1;
+for (int i = 1; i < N; i++) {
+	if (mobius[i]) {
+		mobius[i] = -mobius[i];
+		for (int j = 2 * i; j < VALMAX; j += i) { 
+            mobius[j] += mobius[i]; 
+        }
+	}
+}
+-------------------------------------------------------------------------------
