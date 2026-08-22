@@ -20,6 +20,11 @@ Given n and an array divisors[], count how many numbers between 1 and n are divi
     - ∑ (n / lcm(di, dj))
     + ∑ (n / lcm(di, dj, dk))
     - ... and so on.
+
+Given the counts for each odd-sized, and even-sized subsets, this gives the inclusion-exclusion pattern: +odd−even+odd−even+odd−even…
+​Hence, the total count of unique achievable amounts up to a given limit m is:
+    count (m) = ∑ odd − ∑ even
+​----------------------------------------
 ll n;
 int k;
 cin >> n >> k;
