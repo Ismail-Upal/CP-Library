@@ -56,3 +56,52 @@ for (int mask = 1; mask < (1 << k); mask++) {
 cout << ans << "\\n";
 link: https://codeforces.com/problemset/problem/630/K
 ------------------------------------------------------------------
+Linear Diophantine Equations:
+-----------------------------------------------------------------------
+if: ax + by = c  ,  find (x, y) ? 
+
+gcd(a, b) = gcd(a - b, b) = gcd(b, a % b)
+
+if: c % gcd(a, b) != 0 -> No solution
+if: c % gcd(a, b) == 0 -> Always solution exist
+
+algorithm:
+    ax + by = gcd(a, b)
+//
+ll extgcd(ll a, ll b, ll &x, ll &y) {
+    if (b == 0) { x = 1; y = 0; return a; }
+    ll x1, y1;
+    ll g = extgcd(b, a % b, x1, y1);
+    x = y1;
+    y = x1 - (a / b) * y1;
+    return g;
+}
+
+int main() {
+    ll a = 12, b = 8, c = 20; // ax + by = c
+
+    ll x0, y0;
+    ll g = extgcd(a, b, x0, y0);
+
+    if (c % g != 0) {
+        cout << "No solution\n";
+        return 0;
+    }
+
+    ll xp = x0 * (c / g);
+    ll yp = y0 * (c / g);
+
+    cout << "g = " << g << "\n";
+    cout << "Bezout: 12*" << x0 << " + 8*" << y0 << " = " << g << "\n";
+    cout << "Particular: x = " << xp << ", y = " << yp << "\n";
+    cout << "General: x = " << xp << " + " << (b/g) << "*t\n";
+    cout << "         y = " << yp << " - " << (a/g) << "*t\n\n";
+
+    for (ll t = -2; t <= 2; t++) {
+        ll x = xp + (b/g)*t;
+        ll y = yp - (a/g)*t;
+        cout << "t=" << t << " -> x=" << x << ", y=" << y
+             << "  check: " << a*x + b*y << "\n";
+    }
+}
+//
