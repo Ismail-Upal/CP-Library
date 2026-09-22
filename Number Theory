@@ -208,6 +208,32 @@ vector<int> prime_factor(int n){
     if(n > 1) factor.push_back(n);
     return factor;
 }
+-----------------------------------------------------------
+Prime Factorization of N numbers:
+--------------------------------------------------------------
+const int N = 200004;
+vector<int> factors[N];
+vector<bool> prime(N, 1);
+
+void sieve(){
+    prime[0] = prime[1] = 0;
+
+    for(int i = 2; i * i < N; i++){
+        if(prime[i]){
+            for(int j = i * i; j < N; j += i){
+                prime[j] = 0;
+            }
+        }
+    }
+
+    for(int i = 2; i < N; i++){
+        if(prime[i]){
+            for(int j = i; j < N; j += i){
+                factors[j].push_back(i);
+            }
+        }
+    }
+}
 ---------------------------------------------------------------
 Smallest Prime Factor :
 ---------------------------------------------------------------
