@@ -1,7 +1,7 @@
 total divisors of N :
 -----------------------------------------
 using prime factorization of N
-N = p1^a . p2 ^ b . p3 ^ b ..
+N = p1 ^ a . p2 ^ b . p3 ^ c ..
 total divisor = (a + 1) . (b + 1) . (c + 1) ..
 -----------------------------------------
 Find divisors sqrt : O(sqrt(N))
