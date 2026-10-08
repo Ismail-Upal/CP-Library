@@ -243,17 +243,18 @@ void sieve(){
     }
 }
 ---------------------------------------------------------------
-Smallest Prime Factor :
+Smallest Prime Factor : O(N log log N)
 ---------------------------------------------------------------
-const int N = 1e6 + 9;
+const int N = 1e6 + 5;
 int spf[N];
-void smallest_prime_fact(){
-    for (int i = 2; i < N; i++){
-        spf[i] = i;
-    }
-    for (int i = 2; i < N; i++){
-        for (int j = i; j < N; j += i){
-            spf[j] = min(spf[j], i);
+void smallest_prime_factor(){
+    for(ll i = 2; i < N; i++) spf[i] = i;
+
+    for(ll i = 2; i * i < N; i++){
+        if(spf[i] == i){
+            for(ll j = i * i; j < N; j += i){
+                if(spf[j] == j) spf[j] = i;
+            }
         }
     }
 }
