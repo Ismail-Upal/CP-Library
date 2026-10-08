@@ -96,7 +96,7 @@ char g[N][N];
 bool vis[N][N];
 int dx[] = {0, -1, 0, +1, -1, -1, +1, +1};
 int dy[] = {+1, 0, -1, 0, +1, -1, -1, +1};
-char path[] = {'R', 'U', 'L', 'D'};
+char mov[] = {'R', 'U', 'L', 'D'};
 int n, m;
 bool valid(int i, int j){ return (i >= 0 and i < n and j >= 0 and j < m); }
 
@@ -202,6 +202,7 @@ bool vis[N][N];
 int dis[N][N]; // shortest distance
 int dx[] = {0, -1, 0, +1, -1, -1, +1, +1};
 int dy[] = {+1, 0, -1, 0, +1, -1, -1, +1};
+char mov[] = {'R', 'U', 'L', 'D'};
 int n, m;
 bool valid(int i, int j){ return (i >= 0 and i < n and j >= 0 and j < m); }
 queue<pair<int, int>> q;
