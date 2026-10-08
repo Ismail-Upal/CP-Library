@@ -94,8 +94,8 @@ DFS 2D :
 const int N = 103;
 char g[N][N];
 bool vis[N][N];
-int di[] = {0, -1, 0, +1, -1, -1, +1, +1};
-int dj[] = {+1, 0, -1, 0, +1, -1, -1, +1};
+int dx[] = {0, -1, 0, +1, -1, -1, +1, +1};
+int dy[] = {+1, 0, -1, 0, +1, -1, -1, +1};
 int n, m;
 bool valid(int i, int j){ return (i >= 0 and i < n and j >= 0 and j < m); }
 
@@ -103,8 +103,8 @@ void dfs(int si, int sj) {
     // work : cout << si << " " << sj << endl;
     vis[si][sj] = true;
     for(int i = 0; i < 4; i++){
-        int ci = si + di[i];
-        int cj = sj + dj[i];
+        int ci = si + dx[i];
+        int cj = sj + dy[i];
         if(valid(ci, cj) and !vis[ci][cj] and g[ci][cj] == '.'){
             dfs(ci, cj);
         }
@@ -199,8 +199,8 @@ const int N = 103;
 char g[N][N];
 bool vis[N][N];
 int dis[N][N]; // shortest distance
-int di[] = {0, -1, 0, +1, -1, -1, +1, +1};
-int dj[] = {+1, 0, -1, 0, +1, -1, -1, +1};
+int dx[] = {0, -1, 0, +1, -1, -1, +1, +1};
+int dy[] = {+1, 0, -1, 0, +1, -1, -1, +1};
 int n, m;
 bool valid(int i, int j){ return (i >= 0 and i < n and j >= 0 and j < m); }
 queue<pair<int, int>> q;
@@ -215,8 +215,8 @@ void bfs(int si, int sj) {
         q.pop();
         
         for (int i = 0; i < 4; i++) { 
-            int ci = pi + di[i];
-            int cj = pj + dj[i];
+            int ci = pi + dx[i];
+            int cj = pj + dy[i];
 
             if (valid(ci, cj) && !vis[ci][cj] && g[ci][cj] == '.') {
                 q.push({ci, cj});
