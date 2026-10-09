@@ -1,0 +1,1 @@
+{"name":"Local: 5","url":"d:\\CP-Library\\Segment Tree\\5. Salary_Queries.cpp","tests":[{"id":1791005798879,"input":"5 3\n3 7 2 2 5\n? 2 3\n! 3 6\n? 2 3","output":"3\n2"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\CP-Library\\Segment Tree\\5. Salary_Queries.cpp","group":"local","local":true}
