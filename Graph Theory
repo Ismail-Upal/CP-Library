@@ -988,10 +988,10 @@ int main()
     return 0;
 }
 -----------------------------------------------------------------
-
-
-
-
+Since m < n/2 and 
+It is possible to go from each city to any other city by traversing at most two roads.
+So, the graph is a star graph:
+--------------------------------------------------------------
 
 
 
