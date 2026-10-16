@@ -61,7 +61,7 @@ void dfs(int u){
     }
     // take action on vertex before exiting the vertex
 }
-int32_t main()
+int main()
 {   
     int n, m; cin >> n >> m;
     while(m--){
@@ -165,7 +165,7 @@ vector<int> path(int v) {
     return ans;
 }
 
-int32_t main()
+int main()
 {   
     int n, m; cin >> n >> m;
     while(m--){
@@ -267,7 +267,7 @@ void dfs(int u){
         }
     }
 }
-int32_t main()
+int main()
 {   
     int n, m; cin >> n >> m;
     while(m--){
@@ -415,7 +415,7 @@ const int N = 1e6;
 vector<int> g[N];
 int indeg[N];
 bool vis[N];
-int32_t main()
+int main()
 {   
     int n, m; cin >> n >> m;
     while(m--){
@@ -457,7 +457,7 @@ topological sort : queue
 const int N = 1e6;
 vector<int> g[N];
 int indeg[N];
-int32_t main()
+int main()
 {   
     int n, m; cin >> n >> m;
     while(m--){
@@ -547,7 +547,7 @@ void dfs(int u, int p){
         }
     }
 }
-int32_t main()
+int main()
 {   
     int n; cin >> n;    // n nodes (n - 1) edges in tree 
     for(int i = 1; i < n; i++){
@@ -579,7 +579,7 @@ void dfs(int u, int p){
         }
     }
 }
-int32_t main()
+int main()
 {   
     int n; cin >> n;    // n nodes (n - 1) edges in tree 
     for(int i = 1; i < n; i++){
@@ -625,7 +625,7 @@ void dfs2(int u, int p){
     }
 }
 
-int32_t main()
+int main()
 {   
     int n; cin >> n;
     for(int i = 1; i < n; i++){
