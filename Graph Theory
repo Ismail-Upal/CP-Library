@@ -6,7 +6,7 @@ Adjacency Matrix :
 ----------------------------
 const int N = 105;
 int g[N][N];
-int32_t main()
+int main()
 {   
     int n, m; cin >> n >> m;
     while(m--){
@@ -25,7 +25,7 @@ Adjacency List :
 const int N = 105;
 vector<int> g[N];
 int indeg[N], outdeg[N];
-int32_t main()
+int main()
 {   
     int n, m; cin >> n >> m;
     while(m--){
@@ -314,7 +314,7 @@ void dfs(int u, int p){
         }
     }
 }
-int32_t main()
+int main()
 {   
     opt();
     int n, m; cin >> n >> m;
@@ -365,7 +365,7 @@ void dfs(int u) {
     col[u] = 2; // Mark node as fully processed
 }
 
-int32_t main(){   
+int main(){   
     opt();
     int n, m;
     cin >> n >> m;
