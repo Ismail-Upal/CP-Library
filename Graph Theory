@@ -718,7 +718,7 @@ struct cmp{
 
 void dijkstra(int src) {
     priority_queue<pair<int, int>, vector<pair<int, int>>, cmp> pq;
-    fill(dis, dis + N, 1e9); // Initialize distances
+    dis.assign(N + 1, 1e9);
 
     dis[src] = 0;
     pq.push({src, 0}); // Push (node, cost)
