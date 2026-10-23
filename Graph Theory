@@ -252,6 +252,7 @@ int main() {
 ------------------------------------
 Bicoloring & Bipartite : 
 -----------------------------------
+A graph is bipartite if and only if it has no odd-length cycles. 
 const int N = 1e6;
 vector<int> g[N];
 bool vis[N], ok;
