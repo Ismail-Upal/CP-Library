@@ -140,16 +140,20 @@ void bfs(int u){
     vis[u] = 1;
     dis[u] = 0;
     while(!q.empty()){
-        int u = q.front();
-        q.pop();
-        for(auto v : g[u]){
-            if(!vis[v]){
-                q.push(v);
-                vis[v] = true;
-                dis[v] = dis[u] + 1;
-                par[v] = u;
+        int sz = q.size();
+        while(sz--){ // level by level search
+            int u = q.front();
+            q.pop();
+            for(auto v : g[u]){
+                if(!vis[v]){
+                    q.push(v);
+                    vis[v] = true;
+                    dis[v] = dis[u] + 1;
+                    par[v] = u;
+                }
             }
         }
+        level++; // one level search done
     }
 }
 
