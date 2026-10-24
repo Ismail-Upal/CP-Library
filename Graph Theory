@@ -711,7 +711,7 @@ int main() {
 
 -------------------------------------------------
 Dijkstra : single source shortest path, non negative weighted graph : O ( E log V)
-0/1 BFS : O(V)
+0/1 BFS : O(V + E)
 --------------------------------------------------------------------------
 const int N = 100;
 vector<pair<int, int>> g[N];
