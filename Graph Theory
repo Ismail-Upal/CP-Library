@@ -711,6 +711,7 @@ int main() {
 
 -------------------------------------------------
 Dijkstra : single source shortest path, non negative weighted graph : O ( E log V)
+0/1 BFS : O(V)
 --------------------------------------------------------------------------
 const int N = 100;
 vector<pair<int, int>> g[N];
@@ -743,6 +744,28 @@ void dijkstra(int src) {
             if(uw + vw < dis[v]){
                 dis[v] = uw + vw;
                 pq.push({v, dis[v]});
+            }
+        }
+    }
+}
+
+void OlBFS(int src){
+    deque<pair<int,int>> dq;
+    dis.assign(N + 1, INT_MAX);  
+    dis[src] = 0;
+
+    dq.push_back({src, 0});
+    while(!dq.empty()){
+        auto [u, uw] = dq.front();
+        dq.pop_front();
+
+        if(uw > dis[u]) continue;          
+
+        for(auto [v, vw] : g[u]){
+            if(uw + vw < dis[v]){
+                dis[v] = uw + vw;
+                if(vw == 1) dq.push_back ({v, dis[v]});
+                else dq.push_front({v, dis[v]});
             }
         }
     }
