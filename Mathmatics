@@ -1,6 +1,18 @@
 ll lcm(ll a, ll b){ // safer 
     return a / __gcd(a, b) * b;
 }
+-------------------------------------------------------
+if x, y has no common set bits : 
+    x & y = 0
+    x ^ y = x + y
+
+if a % b == 0
+    lcm(a, b) = a
+
+so i need both (a ^ b) = a + b, lcm(a, b) = a
+    a = b * (1 << 30)
+
+https://codeforces.com/gym/106179/problem/C
 -----------------------------------------------------
 Given n and an array divisors[], count how many numbers between 1 and n are divisible by all of them.
 A number divisible by all of them must be a multiple of their LCM.
