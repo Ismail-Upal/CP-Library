@@ -1,3 +1,7 @@
+KMP String pattern matching algorithms:
+----------------------------------------------------------------
+
+-----------------------------------------------------------------
 Manacher's Algo to find longest palindromic substring : O(n) 
 ------------------------------------------------------------------
 #include <bits/stdc++.h>
