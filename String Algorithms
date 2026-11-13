@@ -4,22 +4,22 @@ vector<int> LPS(string pattern){
     int m = pattern.size();
     vector<int> lps(m, 0);
 
-    int len = 0;
-    int i = 1;
+    int l = 0;
+    int r = 1;
 
-    while(i < m){
-        if(pattern[i] == pattern[len]){
-            len++;
-            lps[i] = len;
-            i++;
+    while(r < m){
+        if(pattern[l] == pattern[r]){
+            l++;
+            lps[r] = l;
+            r++;
         }
         else{
-            if(len != 0){
-                len = lps[len - 1];
+            if(l != 0){
+                l = lps[l - 1];
             }
             else{
-                lps[i] = 0;
-                i++;
+                lps[r] = 0;
+                r++;
             }
         }
     }
